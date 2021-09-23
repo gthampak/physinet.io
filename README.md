@@ -1,11 +1,11 @@
-# (Project Name)
+# Comparing Reservoir Computing, Lagrangian, and Hamiltonian Neural Netowrks' Forecasts of Chaotic Systems in Physics (to be revised)
 
 ### Team Members
 
-1. Nathan Paik
-2. Guy Thampakkul
-3. Tai Xiang
-4. Ziang Xue
+- Nathan Paik
+- Guy Thampakkul
+- Tai Xiang
+- Ziang Xue
 
 ### Introduction
 
