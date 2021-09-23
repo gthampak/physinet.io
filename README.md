@@ -19,6 +19,7 @@ Lagrangian and Hamiltonian neural networks (LNN and HNN) output the Lagrangian a
 
 
 
-### Ethics Discussion (Possible Ethical Implications)
+### Ethics Discussion (Possible Ethical Implications/ideas)
 
-
+- Ethics of brute forcing (waste?)
+- Ethics of "black-box side" of NNs
