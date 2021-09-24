@@ -1,4 +1,4 @@
-# Comparing Reservoir Computing, Lagrangian, and Hamiltonian Neural Netowrks' Forecasts of Chaotic Systems in Physics (to be revised)
+# Comparing Reservoir Computing, Lagrangian, and Hamiltonian Neural Networks' Forecasts of Chaotic Systems in Physics (to be revised)
 
 ### Team Members
 
@@ -21,5 +21,5 @@ Lagrangian and Hamiltonian neural networks (LNN and HNN) output the Lagrangian a
 
 ### Ethics Discussion (Possible Ethical Implications/ideas)
 
-- Ethics of brute forcing (waste?)
-- Ethics of "black-box side" of NNs
+- Brute forcing: The project might require a massive video-based dataset. When training a model with such dataset it takes huge computing power to do so and will consume a considerable amount of energy. The energy used and the carbon-foot print of training such model could be a ethical concern.
+- The uncertainty of NN: The predictions from the models are, after all, only predictions, and there's no guarantee of correctness. If some party put the trained model in real-world use and something goes wrong, causing damage either physically or financially, who should take the responsibility?
