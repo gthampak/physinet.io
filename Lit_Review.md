@@ -6,3 +6,4 @@ This is a very basic introduction on double pendulums and some math included. Fe
 - Cranmer, M., Greydanus, S., Hoyer, S., Battaglia, P., Spergel, D., & Ho, S. (2020, July 30). [*Lagrangian neural networks*](https://arxiv.org/abs/2003.04630).
 This paper talks about Lagrangian neural networks, which I assume will be used in the project. One nice thing about this paper is that it included a test of the LNN on double pendulum, which shows that LNNs are more accurate in predicting the total energy of the system.
 I think it also have a really helpful reference list.
+- Woolley, Jonathan W., P. K. Agarwal, and John Baker. [*Modeling and prediction of chaotic systems with artificial neural networks*](https://onlinelibrary.wiley.com/doi/abs/10.1002/fld.2117). International journal for numerical methods in fluids 63.8 (2010): 989-1004.
