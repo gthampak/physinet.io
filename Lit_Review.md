@@ -7,7 +7,7 @@ Cranmer, M., Greydanus, S., Hoyer, S., Battaglia, P., Spergel, D., & Ho, S. (202
 - This paper talks about Lagrangian neural networks, which I assume will be used in the project. One nice thing about this paper is that it included a test of the LNN on double pendulum, which shows that LNNs are more accurate in predicting the total energy of the system.
 I think it also have a really helpful reference list.
 
-Fan, Huawei, et al. [*Long-term prediction of chaotic systems with machine learning*](
+Fan, H., Jiang, J., Zhang, C., Wang, X., & Lai, Y. C.. [*Long-term prediction of chaotic systems with machine learning*](
 https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.012080)." Physical Review Research 2.1 (2020): 012080.
 
 - 
