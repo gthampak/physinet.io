@@ -1,4 +1,7 @@
-## PeNNdulum: Comparing Reservoir Computing, Lagrangian, and Hamiltonian Neural Networks' Forecasts of Chaotic Systems in Physics
+
+# PeNNdulum
+
+## Comparing Reservoir Computing, Lagrangian, and Hamiltonian Neural Networks' Forecasts of Chaotic Systems in Physics
 
 ### Team Members
 
