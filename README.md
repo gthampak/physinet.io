@@ -28,6 +28,15 @@ Lagrangian and Hamiltonian neural networks (LNN and HNN) output the Lagrangian a
 - The uncertainty of NN: The predictions from the models are, after all, only predictions, and there's no guarantee of correctness. If some party put the trained model in real-world use and something goes wrong, causing damage either physically or financially, who should take the responsibility?
 - The possibility of a NN "learning wrong": Neural networks have the capability to "learn", but their results may not always implicate successful learning. For example, in a real world scenario, if a NN learns a certain behavior, it may reflect racist or sexist tendencies that exist in the world without intentionally doing so. This includes areas like ad selection, image detection (mislabelling), resume classification, etc.
 
+### Update 1
+
+- Name and link to the software you will use (or state that you are writing something from scratch).
+- Name and link to the dataset that you will be using (or state how you will create your own dataset).
+- Provide a high-level overview of the following:
+    - The type of neural network you will use (e.g., fully connected, convolutional, recurrent, etc.)
+    - The shape and type of your inputs (are they three-channel images? sequences of words? a vector of floating-point values? embeddings? etc.)
+    - The shape and type of your outputs (are you performing classification? regression? segmentation?, etc.)
+
 ### Literature Review
 
 Cranmer, M., Greydanus, S., Hoyer, S., Battaglia, P., Spergel, D., & Ho, S. (2020, July 30). [*Lagrangian neural networks*](https://arxiv.org/abs/2003.04630).
