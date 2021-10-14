@@ -61,7 +61,7 @@ For the Hamiltonian and Lagrangian neural networks, we will input a set of initi
 
 ### Literature Review
 
-Asseman, A., Kornuta, T., & Ozcan, A.S. (2018). [*Learning beyond simulated physics.*]
+Asseman, A., Kornuta, T., & Ozcan, A.S. (2018). Learning beyond simulated physics.
 
 - This paper introduces a dataset for a double pendulum that consists of inputs of the positions and angles of the arms, and outputs of the path. It also utilizes an LSTM to train on this dataset and predict the motion of a double pendulum.
 
@@ -73,11 +73,11 @@ Bollt, E. (2021, January 4). [*On explaining the surprising success of reservoir
 
 - An explanation on why reservoir computing succeeds at forecasting dynamical systems. Explains some of the foundational mathematics behind reservoir computing and benchmarks various iterations of reservoir computing on tasks involving dynamical systems and compares them against other architectures.
 
-Klinkachorn, S., & Parmar, J. (2019). [*Evaluating Current Machine Learning Techniques On Predicting Chaotic Systems CS.*]
+Klinkachorn, S., & Parmar, J. (2019). Evaluating Current Machine Learning Techniques On Predicting Chaotic Systems CS.
 
 - A study on the ability of different forms of ML and deep learning algorithms to fit the path of a double pendulum. The researchers found that at small angles where chaotic motion was not present,  a simple linear regression with a polynomial feature map performed best, while a LSTM was the most accurate when chaotic motion began to occur.
 
-Rudy, S.H., Kutz, J.N., & Brunton, S.L. (2019). [*Deep learning of dynamics and signal-noise decomposition with time-stepping constraints.*] J. Comput. Phys., 396, 483-506.
+Rudy, S.H., Kutz, J.N., & Brunton, S.L. (2019). Deep learning of dynamics and signal-noise decomposition with time-stepping constraints. J. Comput. Phys., 396, 483-506.
 
 - A study on the variance of the performance of deep learning models on complex and dynamical systems when there are variations in noise, as well as a new method to circumvent issues caused by noisy data. They treat measurement error and noisiness as part of the unknowns that the neural network must deal with, instead of de-noising data early on. The double pendulum is used as an example in this paper.
 
