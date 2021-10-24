@@ -65,6 +65,8 @@ We will be using recurrent neural networks, echo state networks (reservoir compu
 
 For the Hamiltonian and Lagrangian neural networks, we will input a set of initial conditions. However, our corresponding outputs will be transformed to be a vector of the potential and kinetic energy of the system over time. With these outputs and the corresponding Hamiltonian and Lagrangian to the double pendulum system, we can construct the change in x and y coordinates over time to properly compare against the recurrent and echo state neural networks.
 
+***
+
 ### Update 2
 
 #### Progress
