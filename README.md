@@ -151,7 +151,7 @@ Lutter, M., Ritter, C., &; Peters, J. (2019, July 10). [Deep lagrangian networks
 
 Greydanus, S., Dzamba, M., &amp; Yosinski, J. (2019, September 5). [Hamiltonian neural networks.](https://arxiv.org/abs/1906.01563.)
 
-- github pages/codes
+github pages/codes
 - https://greydanus.github.io/2019/05/15/hamiltonian-nns/ (pages)
 - https://github.com/greydanus/hamiltonian-nn (code)
 - https://github.com/MilesCranmer/lagrangian_nns (code)
@@ -161,3 +161,7 @@ Greydanus, S., Dzamba, M., &amp; Yosinski, J. (2019, September 5). [Hamiltonian 
 Lutter, M., Ritter, C., &amp; Peters, J. (2019, July 10). [Deep Lagrangian Networks: Using Physics as Model Prior for Deep Learning](https://arxiv.org/pdf/1907.04490.pdf)
 
 Cranmer, M., Greydanus, S., Hoyer, S., Battaglia, P., Spergel, D., & Ho, S. (2020). [Lagrangian neural networks](https://arxiv.org/pdf/2003.04630.pdf)
+
+- github pages/codes
+- https://greydanus.github.io/2020/03/10/lagrangian-nns/ (pages)
+- https://github.com/MilesCranmer/lagrangian_nns (code)
