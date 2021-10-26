@@ -151,9 +151,10 @@ Lutter, M., Ritter, C., &; Peters, J. (2019, July 10). [Deep lagrangian networks
 
 Greydanus, S., Dzamba, M., &amp; Yosinski, J. (2019, September 5). [Hamiltonian neural networks.](https://arxiv.org/abs/1906.01563.)
 
-- github codes
-- https://github.com/greydanus/hamiltonian-nn
-- https://github.com/MilesCranmer/lagrangian_nns
+- github pages/codes
+- https://greydanus.github.io/2019/05/15/hamiltonian-nns/ (pages)
+- https://github.com/greydanus/hamiltonian-nn (code)
+- https://github.com/MilesCranmer/lagrangian_nns (code)
 
 ### Potentially Useful Lagrangian Neural Networks Papers
 
