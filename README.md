@@ -152,4 +152,6 @@ Greydanus, S., Dzamba, M., &amp; Yosinski, J. (2019, September 5). [Hamiltonian 
 
 ### Potentially Useful Lagrangian Neural Networks Papers
 
-Lutter, M., Ritter, C., &amp; Peters, J. (2019, July 10). [Deep Lagrangian Networks: Using Physics as Model Prior for Deep Learnin](https://arxiv.org/pdf/1907.04490.)
+Lutter, M., Ritter, C., &amp; Peters, J. (2019, July 10). [Deep Lagrangian Networks: Using Physics as Model Prior for Deep Learnin](https://arxiv.org/pdf/1907.04490.pdf)
+
+https://arxiv.org/pdf/2003.04630.pdf
