@@ -34,6 +34,34 @@ Although sharing multiple similiarities, our work primarily differs in that we s
 
 ***
 
+### Methods
+
+Include: the software you are using, the datasets you are using, the tools you will use for analysis, etc.
+
+- Preprocessing
+
+(Describe Dataset)
+
+- Recurrent-Neural Network
+
+(How we plan to set it up)
+
+- Reservoir Computing
+
+(How we plan to set it up)
+
+- Lagrangian Neural network 
+
+(How we plan to set it up)
+
+Model based on (these works)
+
+- Hamiltonian Neural Network
+
+(How we plan to set it up)
+
+Model based on (these works)
+
 ### Update 1
 
 #### Software Used: 
@@ -64,6 +92,19 @@ There is an WIP Jupyter notebook that tries to make a baseline RNN out of these.
 We will be using recurrent neural networks, echo state networks (reservoir computing), Lagrangian neural networks, and Hamiltonian neural networks. In the case of the recurrent and echo state network, our data will be input as a vector describing the initial conditions. Our output for those two models will be a set of x and y coordinates corresponding to the path of the pendulum. These will just be a vector of floating-point values. We can then visualize these positions to get a general sense of the pendulum's travel over time.
 
 For the Hamiltonian and Lagrangian neural networks, we will input a set of initial conditions. However, our corresponding outputs will be transformed to be a vector of the potential and kinetic energy of the system over time. With these outputs and the corresponding Hamiltonian and Lagrangian to the double pendulum system, we can construct the change in x and y coordinates over time to properly compare against the recurrent and echo state neural networks.
+
+***
+
+### Update 2
+
+#### Progress
+
+Thus far, we have explored our double pendulum dataset and have looked through notebooks about the general status of the dataset as well as training examples. We currently have a very rudimentary Long Short Term Memory neural network that is trained on the data, and it is capable of making predictions on a double pendulums path, though it is quite inaccurate. This LSTM is mostly adopted from the IBM example notebook, and we will soon be altering it to be our baseline RNN model and also performing hyperparameter optimization on that RNN model to make sure it performs to the best of its ability.
+
+Another item we have updated is an improved ethics question - considering whether the clean IBM dataset we use for training causes us problems when noisy data is used as input. To test this, we have obtained a less optimal double pendulum from the Pomona College Physics Department and we plan on writing computer vision code to track and map the path of the pendulum so that we can validate it with our model.
+
+#### Issues
+We initially encountered some issues with the example notebooks provided by the IBM dataset and what exact parameters we would train on. However, we resolved those issues by studying the notebook more and understanding the coordinate axis on which we train on better. Aside from that, our progress has been fairly smooth and we understand our next steps well.
 
 ***
 
@@ -104,3 +145,23 @@ Zhang, H., Fan, H., Wang, L., & Wang, X. (2021). [*Learning Hamiltonian dynamics
 Lutter, M., Ritter, C., &; Peters, J. (2019, July 10). [Deep lagrangian networks: Using physics as model prior for deep learning](https://arxiv.org/abs/1907.04490). 
 
 - A network structure called Deep Lagrangian Networks is presented. Previous works seldomly combined NN and differential equations. The paper gives an introduction on Lagrangian mechanics and the math of fitting it into NN. The team did a 2-degree-of-freedom robot arm simulation, and the Deep Lagrangian Network learnt the physical model of the system. The double pendulum is a similar 2-degree-of-freedom problem that is based within classical mechanics.
+
+
+### Potentially Useful Hamilton Neural Networks Papers
+
+Greydanus, S., Dzamba, M., &amp; Yosinski, J. (2019, September 5). [Hamiltonian neural networks.](https://arxiv.org/abs/1906.01563.)
+
+github pages/codes
+- https://greydanus.github.io/2019/05/15/hamiltonian-nns/ (pages)
+- https://github.com/greydanus/hamiltonian-nn (code)
+- https://github.com/MilesCranmer/lagrangian_nns (code)
+
+### Potentially Useful Lagrangian Neural Networks Papers
+
+Lutter, M., Ritter, C., &amp; Peters, J. (2019, July 10). [Deep Lagrangian Networks: Using Physics as Model Prior for Deep Learning](https://arxiv.org/pdf/1907.04490.pdf)
+
+Cranmer, M., Greydanus, S., Hoyer, S., Battaglia, P., Spergel, D., & Ho, S. (2020). [Lagrangian neural networks](https://arxiv.org/pdf/2003.04630.pdf)
+
+- github pages/codes
+- https://greydanus.github.io/2020/03/10/lagrangian-nns/ (pages)
+- https://github.com/MilesCranmer/lagrangian_nns (code)
