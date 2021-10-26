@@ -36,6 +36,8 @@ Although sharing multiple similiarities, our work primarily differs in that we s
 
 ### Methods
 
+Include: the software you are using, the datasets you are using, the tools you will use for analysis, etc.
+
 - Preprocessing
 
 (Describe Dataset)
@@ -152,6 +154,6 @@ Greydanus, S., Dzamba, M., &amp; Yosinski, J. (2019, September 5). [Hamiltonian 
 
 ### Potentially Useful Lagrangian Neural Networks Papers
 
-Lutter, M., Ritter, C., &amp; Peters, J. (2019, July 10). [Deep Lagrangian Networks: Using Physics as Model Prior for Deep Learnin](https://arxiv.org/pdf/1907.04490.pdf)
+Lutter, M., Ritter, C., &amp; Peters, J. (2019, July 10). [Deep Lagrangian Networks: Using Physics as Model Prior for Deep Learning](https://arxiv.org/pdf/1907.04490.pdf)
 
-https://arxiv.org/pdf/2003.04630.pdf
+Cranmer, M., Greydanus, S., Hoyer, S., Battaglia, P., Spergel, D., & Ho, S. (2020). [Lagrangian neural networks](https://arxiv.org/pdf/2003.04630.pdf)
