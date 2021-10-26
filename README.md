@@ -34,6 +34,32 @@ Although sharing multiple similiarities, our work primarily differs in that we s
 
 ***
 
+### Methods
+
+- Preprocessing
+
+(Describe Dataset)
+
+- Recurrent-Neural Network
+
+(How we plan to set it up)
+
+- Reservoir Computing
+
+(How we plan to set it up)
+
+- Lagrangian Neural network 
+
+(How we plan to set it up)
+
+Model based on (these works)
+
+- Hamiltonian Neural Network
+
+(How we plan to set it up)
+
+Model based on (these works)
+
 ### Update 1
 
 #### Software Used: 
