@@ -36,31 +36,29 @@ Although sharing multiple similiarities, our work primarily differs in that we s
 
 ### Methods
 
-Include: the software you are using, the datasets you are using, the tools you will use for analysis, etc.
+We will be training and optimizing a recurrent neural network, echo state network (reservoir computing), a Hamiltonian Neural Network, and a Lagrangian Neural Network. The recurrent neural network will be trained with PyTorch, the echo state network will most likely be trained with Python library "easy-esn", "pytorch-esn", or "EchoTorch", and the Hamiltonian Neural Network and Lagrangian Neural Networks will most likely be constructed from scratch. Notebooks outlining methodologies for the HNN and LNN exist, making their training a lot less daunting.
+
+The datasets we will be using are the IBM double pendulum dataset, and we plan on building our own dataset with some computer vision code and a double pendulum setup provided by Pomona College Physics Department. The IBM dataset will be used for training, and our self-made dataset will be used for testing on a noisier system.
+
+For analysis, we will be writing some graphing functions that allow for the graphing of the path of the double pendulum overtime. We can overlay the theoretical paths with the nn-generated paths to get a clear visual representation of how networks perform. Other more statistical metrics, such as comparison through a confusion matrix, F1 score comparison, etc. will also be compared.
 
 - Preprocessing
 
-(Describe Dataset)
+Pre-processing involves unpacking and preparing the dataset for training uses. The dataset contains raw data of initial conditions and then 2000 frames of the pendulum path. To make this usable for our training model, we must apply a set of transformations. We first convert the raw coordinates to pixel (cartesian) coordinates, and then transform those to polar coordinates. We want to use polar coordinates here as they encode information on both position and angle, which is especially effective for coupled oscillators. The data can now be fed into the network for training.
 
 - Recurrent-Neural Network
 
-(How we plan to set it up)
+The recurrent neural network will be set up using PyTorch libraries. We will be simply feeding it training data and performing hyperparameter optimization to receive a baseline model.
 
 - Reservoir Computing
 
-(How we plan to set it up)
+We will be training the echo state network through one of the afformentioned Python libraries. We will also be performing hyperparameter optimization on this model as well. However, it will differ from traditional neural networks, as we will be iterating ESN specific parameters such as number of reservoirs, leaking rate, spectral radius, and regression parameters.
 
-- Lagrangian Neural network 
+- Hamiltonian Neural Network and Lagrangian Neural Network
 
-(How we plan to set it up)
+The Lagrangian and Hamiltonian Neural Network must be written from scratch as their underlying mathematical equations and layers differ from conventional neural networks. However, notebooks demonstrating both networks are provided alongside the papers, thus simplifying the task a bit. Furthermore, optimal hyperparameters are also provided by the researchers, thus we do not need to optimize those networks.
 
-Model based on (these works)
-
-- Hamiltonian Neural Network
-
-(How we plan to set it up)
-
-Model based on (these works)
+To compare these networks, we will be looking at validation loss, accuracy, and F1 score and comparing how well they perform on the testing set that is segmented from the IBM dataset. We will also be vetting each of these models on our noisey Pomona College double pendulum to see how well each model handles deviation from ideal circumstances. 
 
 ### Update 1
 
@@ -102,6 +100,8 @@ For the Hamiltonian and Lagrangian neural networks, we will input a set of initi
 Thus far, we have explored our double pendulum dataset and have looked through notebooks about the general status of the dataset as well as training examples. We currently have a very rudimentary Long Short Term Memory neural network that is trained on the data, and it is capable of making predictions on a double pendulums path, though it is quite inaccurate. This LSTM is mostly adopted from the IBM example notebook, and we will soon be altering it to be our baseline RNN model and also performing hyperparameter optimization on that RNN model to make sure it performs to the best of its ability.
 
 Another item we have updated is an improved ethics question - considering whether the clean IBM dataset we use for training causes us problems when noisy data is used as input. To test this, we have obtained a less optimal double pendulum from the Pomona College Physics Department and we plan on writing computer vision code to track and map the path of the pendulum so that we can validate it with our model.
+
+We have also began working on hyperparameter optimization for the baseline networks.
 
 #### Issues
 We initially encountered some issues with the example notebooks provided by the IBM dataset and what exact parameters we would train on. However, we resolved those issues by studying the notebook more and understanding the coordinate axis on which we train on better. Aside from that, our progress has been fairly smooth and we understand our next steps well.
