@@ -32,5 +32,3 @@ sys.path.append('../hyperopt')
 
 from lagrangian_nns.hyperopt.HyperparameterSearch import learned_dynamics
 from lagrangian_nns.hyperopt.HyperparameterSearch import extended_mlp
-
-

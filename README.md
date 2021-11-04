@@ -147,7 +147,7 @@ Lutter, M., Ritter, C., &; Peters, J. (2019, July 10). [Deep lagrangian networks
 - A network structure called Deep Lagrangian Networks is presented. Previous works seldomly combined NN and differential equations. The paper gives an introduction on Lagrangian mechanics and the math of fitting it into NN. The team did a 2-degree-of-freedom robot arm simulation, and the Deep Lagrangian Network learnt the physical model of the system. The double pendulum is a similar 2-degree-of-freedom problem that is based within classical mechanics.
 
 
-### Potentially Useful Hamilton Neural Networks Papers
+### Useful Hamilton Neural Networks Papers
 
 Greydanus, S., Dzamba, M., &amp; Yosinski, J. (2019, September 5). [Hamiltonian neural networks.](https://arxiv.org/abs/1906.01563.)
 
@@ -156,7 +156,7 @@ github pages/codes
 - https://github.com/greydanus/hamiltonian-nn (code)
 - https://github.com/MilesCranmer/lagrangian_nns (code)
 
-### Potentially Useful Lagrangian Neural Networks Papers
+### Useful Lagrangian Neural Networks Papers
 
 Lutter, M., Ritter, C., &amp; Peters, J. (2019, July 10). [Deep Lagrangian Networks: Using Physics as Model Prior for Deep Learning](https://arxiv.org/pdf/1907.04490.pdf)
 
