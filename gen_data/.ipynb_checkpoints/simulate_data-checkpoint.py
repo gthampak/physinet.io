@@ -35,6 +35,8 @@ def lagrangian(q, q_dot, m1, m2, l1, l2, g):
   return T - V
 
 
+# t1 and t2 correspond to the angles theta 1 theta 2, and w1 w2 correspond to the angular velocities omega 1 omega 2
+
 # analytical solution for dbl pendulum
 def f_analytical(state, t=0, m1=1, m2=1, l1=1, l2=1, g=9.8):
   t1, t2, w1, w2 = state
@@ -102,13 +104,22 @@ def generate_train_ideal():
     # 20 seconds of data
     
     analytical_step = jax.jit(jax.vmap(partial(rk4_step, f_analytical, t=0.0, h=time_step)))
-
+    
+    # initialize some state with some theta and 0 angular velocities
     x0 = np.array([3*np.pi/7, 3*np.pi/4, 0, 0], dtype=np.float32)
     t = np.arange(N, dtype=np.float32) # time steps 0 to N
-    x_train = jax.device_get(solve_analytical(x0, t)) # dynamics for first N time steps
-    xt_train = jax.device_get(jax.vmap(f_analytical)(x_train)) # time derivatives of each state
-    y_train = jax.device_get(analytical_step(x_train)) # analytical next step
-
+    
+    # dynamics for first N time steps that describes how the pendulum moves
+    x_train = jax.device_get(solve_analytical(x0, t))
+    
+    # time derivatives for each of the x_train states
+    xt_train = jax.device_get(jax.vmap(f_analytical)(x_train))
+    
+    # the next part of the time step that you get by performing a step of runge kutta integration
+    # this time evolves the double pendulum and basically gets where it will be next
+    y_train = jax.device_get(analytical_step(x_train))
+    
+    # same thing, now testing data but for further time
     t_test = np.arange(N, 2*N, dtype=np.float32) # time steps N to 2N
     x_test = jax.device_get(solve_analytical(x0, t_test)) # dynamics for next N time steps
     xt_test = jax.device_get(jax.vmap(f_analytical)(x_test)) # time derivatives of each state
@@ -116,5 +127,12 @@ def generate_train_ideal():
     
     # x_train are the actual dynamics, xt_train are the time derivatives, and y_train are the next steps
     return x_train, xt_train, y_train, x_test, xt_test, y_test
+
+
+# x_0 is some random starting sequence
+
+x_train, xt_train, y_train, x_test, xt_test, y_test = generate_train_ideal()
+
+print(x_train)
 
 
