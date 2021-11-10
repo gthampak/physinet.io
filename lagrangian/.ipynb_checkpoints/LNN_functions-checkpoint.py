@@ -174,3 +174,6 @@ def fig2image(fig):
   data = np.fromstring(fig.canvas.tostring_rgb(), dtype=np.uint8, sep='')
   image = data.reshape(fig.canvas.get_width_height()[::-1] + (3,))
   return image
+# -
+
+
