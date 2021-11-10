@@ -165,9 +165,3 @@ def generate_train_noisy():
     
     # x_train are the actual dynamics, xt_train are the time derivatives, and y_train are the next steps
     return x_train, xt_train, y_train, x_test, xt_test, y_test
-
-
-
-generate_train_noisy()
-
-generate_train_ideal()
