@@ -108,6 +108,26 @@ We initially encountered some issues with the example notebooks provided by the 
 
 ***
 
+### Discussion / Result
+
+After building a LSTM model, a LNN model and trying to build an ESN model, we have find out the following:
+
+- Current ESN packages available are all poorly documented, and since our project is essentially performing multifeature time sequence forecast, which adds a dimension to the input data, most of these packages are non-compatible. In the rare case where we get it to predict the correct dimensioned data, the output is far off from the target data. One thing I have noticed is that the target angular values are often changing non-linearly, but the prediction are highly linear.
+
+- The LSTM model is able to produce correctly shaped data that make a vague sense. Eyeballing the output shows that it is somewhat related to the target, but after ploting the predicted coordinates, the prediction only shares the overall direction of the target, and is no where near being accurate. With the 4 input values all ranging between -1 and 1, we are getting loss of about 0.2, which is quite high.
+
+- The LNN model demonstrate a accurate prediction of the pendulum for the first few prediction frams, but once there is considerable error, the error propagates quickly throughout the system and make the prediction unrealiable. However, this make sense since double pendulum is such a chaotic system and error propagates easily. Also, LNN prediction seems to follow the actual physical rules and conserve energy and momentum while making the prediction, which is a virtue most neural networks lack.
+
+The discussion section will be presenting the plots made from the LSTM and LNN models, and provide the corresponding loss.
+
+The interpretation goes in the paragraphs above.
+
+This result proves our assumption that all 3 of RNN (LSTM), ESN and LNN are not very accurate at predicting double pendulum, but overall RNN < LNN (ESN not included since unfortunately it has not been working). This also proves our assumption that LNN makes a physically credible prediction and is able to learn the actual physical rules of the system.
+
+The result section should also feature a discussion of how and why ESN failed to work.
+
+***
+
 ### Literature Review
 
 Asseman, A., Kornuta, T., & Ozcan, A.S. (2018). Learning beyond simulated physics.
