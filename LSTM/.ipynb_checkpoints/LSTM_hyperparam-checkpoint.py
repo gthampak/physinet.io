@@ -21,7 +21,7 @@ from torch.utils.tensorboard import SummaryWriter
 from itertools import product
 # -
 
-writer = SummaryWriter('hyperparam_runs/')
+tb = SummaryWriter('hyperparam_runs/')
 
 # +
 # training data
@@ -194,7 +194,7 @@ trainDataSet = DoublePendulumDataset(X_train,y_train)
 params = dict(
     lr = [0.001, 0.01, 0.1],
     batch_size = [32, 64, 128, 256],
-    loss = [nn.MSELoss(), nn.CrossEntropyLoss()],
+    loss = [nn.MSELoss()],
     shuffle = [True, False])
 
 param_values = [v for v in params.values()]
@@ -214,7 +214,7 @@ def train(lr, batch_size, loss, shuffle):
     model.train()
 
     # Define hyperparameters
-    n_epochs = 20
+    n_epochs = 10
     # Define Loss, Optimizer
     criterion = loss
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
@@ -236,7 +236,7 @@ def train(lr, batch_size, loss, shuffle):
 
             # print statistics
             running_loss += loss.item()
-            writer.add_scalar("Loss", running_loss, epoch)
+            tb.add_scalar("Loss", running_loss, epoch)
             if i % 100 == 99:    # print every 100 mini-batches
                 print('[%d, %5d] loss: %.3f' %
                       (epoch + 1, i + 1, running_loss / 100))
@@ -252,12 +252,16 @@ def train(lr, batch_size, loss, shuffle):
     print('Finished Training')
 
 
+# +
 for run_num, (lr, batch_size, loss, shuffle) in enumerate(product(*param_values)):
     print("run number:", run_num + 1)
     print("Hyperparameters: lr: " + str(lr), 
           "batch_size: " + str(batch_size), "loss: " + str(type(loss)) + "shuffle: " + str(shuffle))
     train(lr, batch_size, loss, shuffle)
     
-    tb.close()
+tb.close()
+# -
+
+
 
 
