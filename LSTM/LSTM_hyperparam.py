@@ -236,7 +236,7 @@ def train(lr, batch_size, loss, shuffle):
 
             # print statistics
             running_loss += loss.item()
-            writer.add_scalar("Loss", running_loss, epoch)
+            tb.add_scalar("Loss", running_loss, epoch)
             if i % 100 == 99:    # print every 100 mini-batches
                 print('[%d, %5d] loss: %.3f' %
                       (epoch + 1, i + 1, running_loss / 100))
@@ -252,12 +252,16 @@ def train(lr, batch_size, loss, shuffle):
     print('Finished Training')
 
 
+# +
 for run_num, (lr, batch_size, loss, shuffle) in enumerate(product(*param_values)):
     print("run number:", run_num + 1)
     print("Hyperparameters: lr: " + str(lr), 
           "batch_size: " + str(batch_size), "loss: " + str(type(loss)) + "shuffle: " + str(shuffle))
     train(lr, batch_size, loss, shuffle)
     
-    tb.close()
+tb.close()
+# -
+
+
 
 
