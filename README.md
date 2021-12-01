@@ -63,11 +63,41 @@ To compare these networks, we looked at validation loss and accuracy, and compar
 
 After building a LSTM model, a LNN model and trying to build an ESN model, we have find out the following:
 
-Current ESN packages available are all poorly documented, and since our project is essentially performing multifeature time sequence forecast, which adds a dimension to the input data, most of these packages are non-compatible. In the rare case where we get it to predict the correct dimensioned data, the output is far off from the target data. One thing I have noticed is that the target angular values are often changing non-linearly, but the prediction are highly linear.
-
 The LSTM model is able to produce correctly shaped data that makes a vague sense. Eyeballing the output shows that it is somewhat related to the target, but after plotting the predicted coordinates, the prediction only shares the overall direction of the target, and is nowhere near being accurate. With the 4 input values all ranging between -1 and 1, we are getting a loss of about 0.2, which is quite high.
 
 - The LNN model demonstrates an accurate prediction of the pendulum for the first few prediction frame, but once there is considerable error, the error propagates quickly throughout the system and make the prediction unreliable. However, this make sense since double pendulum is such a chaotic system and error propagates easily. Also, LNN prediction seems to follow the actual physical rules and conserve energy and momentum while making the prediction, which is a virtue most neural networks lack.
+
+### ESN Model
+
+Our ESN model takes as input the triangular functions of the angles formed by the arms and the vertical line. The key hyperparameters for our network are as follows:
+
+```python
+leak_rate = 0.1    #Decides the memory size of the reservoir. higher value means shorter memory.
+spectral_radius = 25.0 #Higher values apply for more chaotic system
+input_scaling = 0.5 #Smaller values (towards 0) leads to free behavior and higher values (towards 1) leads to input-driven behavior
+regularization = 1e-7 #ridge optimization parameter.
+forecase = 1 #use the next following frame as label.
+```
+
+The ESN trains on entire time series and use the same serie (but one frame later) as label. The network turns out to be extremely inaccurate in learning and predicting the movement of the end joint of the double pendulum.
+
+First of all, the prediction accuracy does not depend on the size of the training data. We first trained the ESN on each sample sequence, tested the prediction error (MSE), and then reset the model to untrained state. We then trained another model on the entire dataset (40 sequence) without reset. Figure *1(a)* shows the MSE with resetting and figure *1(b)* shows the MSE without resetting. Figure *1(c)* compares the errors from the two model.
+
+Figure 1a            |  Figure 1b|  Figure 1c
+:-------------------------:|:-------------------------:|:-------------------------:
+![](plots/MSEwReset.png)  |  ![](plots/MSEwoReset.png) |  ![](plots/MSEdiffReset.png)
+
+We see from the figures that the MSE loss are relatively similar for both models, which implies that size of training data does affect model precision.
+
+This could be accounted to the limited "memory" for an ESN network. When training on large dataset, new incoming data takes away memory space of the network and make it "forgets" earlier inputs that it has learned.
+
+We observe that this is not due to the specific sequence we tested the ESN upon. The sequences varies in their difficulty to train, but the the difference is within range of the error predicting one sequence can produce. This is shown in figure *2*
+
+![Figure 2](plots/SeqMSEs.png)
+
+Changing the `leak_rate` parameter for a longer term of memory does not solve is problem.
+
+`TODO`: do 3 model with different leak_rate and compare diff. of resetting/noresseting.
 
 The discussion section will be presenting the plots made from the LSTM and LNN models, and provide the corresponding loss.
 
@@ -76,7 +106,6 @@ The interpretation goes in the paragraphs above.
 This result proves our assumption that all 3 of RNN (LSTM), ESN and LNN are not very accurate at predicting double pendulum, but overall RNN < LNN (ESN not included since unfortunately it has not been working). This also proves our assumption that LNN makes a physically credible prediction and is able to learn the actual physical rules of the system.
 
 The result section should also feature a discussion of how and why ESN failed to work.
-
 #### Ethical Implication and Discussion
 
 A possible ethical issue in this instance is the use of overideal training data. The IBM double pendulum dataset that is used for training is a dataset that is clean and not noisy: it is filmed with a high speed camera in a controlled environment, with carefully measured axis markers and angular values. However, it is possible that the models we train with this dataset are incapable of handling a noisy system, such as validation on a user-generated double pendulum path. We will analyze this issue in our validation of each model with the Pomona College double pendulum. 
