@@ -111,27 +111,18 @@ def init_nn():
 
 def generate_train_ideal():
     print("generating data...")
-    time_step = 0.01
-    N = 2000
-    # 20 seconds of data
     
+    time_step = 0.01
+    N = 1500
     analytical_step = jax.jit(jax.vmap(partial(rk4_step, f_analytical, t=0.0, h=time_step)))
     
-    # initialize some state with some theta and 0 angular velocities
     x0 = np.array([3*np.pi/7, 3*np.pi/4, 0, 0], dtype=np.float32)
     t = np.arange(N, dtype=np.float32) # time steps 0 to N
     
-    # dynamics for first N time steps that describes how the pendulum moves
-    x_train = jax.device_get(solve_analytical(x0, t))
-    
-    # time derivatives for each of the x_train states
-    xt_train = jax.device_get(jax.vmap(f_analytical)(x_train))
-    
-    # the next part of the time step that you get by performing a step of runge kutta integration
-    # this time evolves the double pendulum and basically gets where it will be next
-    y_train = jax.device_get(analytical_step(x_train))
-    
-    # same thing, now testing data but for further time
+    x_train = jax.device_get(solve_analytical(x0, t)) # dynamics for first N time steps
+    xt_train = jax.device_get(jax.vmap(f_analytical)(x_train)) # time derivatives of each state
+    y_train = jax.device_get(analytical_step(x_train)) # analytical next step
+
     t_test = np.arange(N, 2*N, dtype=np.float32) # time steps N to 2N
     x_test = jax.device_get(solve_analytical(x0, t_test)) # dynamics for next N time steps
     xt_test = jax.device_get(jax.vmap(f_analytical)(x_test)) # time derivatives of each state
@@ -141,15 +132,16 @@ def generate_train_ideal():
     return x_train, xt_train, y_train, x_test, xt_test, y_test
 
 
+print(generate_train_ideal())
+
+
 # x_0 is some random starting sequence
 
 def generate_train_noisy():
     print("generating noisy data...")
     
     time_step = 0.01
-    N = 2000
-    # 20 seconds of data
-    
+    N = 1500
     analytical_step = jax.jit(jax.vmap(partial(rk4_step, f_analytical, t=0.0, h=time_step)))
     
     # initialize some state with some theta and 0 angular velocities
@@ -160,11 +152,8 @@ def generate_train_noisy():
     noise_coeff = 1e-3
     
     # dynamics for first N time steps that describes how the pendulum moves
-    
     x_train = jax.device_get(solve_analytical(x0 + noise_coeff * noise, t))
-    
     xt_train = jax.device_get(jax.vmap(f_analytical)(x_train))
-    
     # the next part of the time step that you get by performing a step of runge kutta integration
     # this time evolves the double pendulum and basically gets where it will be next
     y_train = jax.device_get(analytical_step(x_train))
@@ -177,3 +166,5 @@ def generate_train_noisy():
     
     # x_train are the actual dynamics, xt_train are the time derivatives, and y_train are the next steps
     return x_train, xt_train, y_train, x_test, xt_test, y_test
+
+

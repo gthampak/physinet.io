@@ -1,3 +1,5 @@
+# # Adapted from Miles Cramer's LNN training NB
+
 # +
 import jax
 import jax.numpy as jnp
@@ -17,6 +19,7 @@ from moviepy.editor import ImageSequenceClip
 from functools import partial
 import proglog
 from PIL import Image
+import importlib
 
 from simulate_data import generate_train_ideal, solve_lagrangian, init_nn, normalize_dp, solve_analytical
 
@@ -91,7 +94,7 @@ def radial2cartesian(t1, t2, l1, l2):
   y1 = -l1 * np.cos(t1)
   x2 = x1 + l2 * np.sin(t2)
   y2 = y1 - l2 * np.cos(t2)
-  return x1, y1, x2, y2
+  return x1, y1, x2, y2 
 
 def fig2image(fig):
   fig.canvas.draw()
@@ -111,10 +114,20 @@ x1 = np.array([3*np.pi/7, 3*np.pi/4, 0, 0], dtype=np.float32)
 t2 = np.linspace(0, 20, num=301)
 
 # predictions from LNN
-x1_model = jax.device_get(solve_lagrangian(learned_lagrangian(params), x1, t=t2)) 
-
-# analytical solution
+x1_model = jax.device_get(solve_lagrangian(learned_lagrangian(params), x1, t=t2))
 x1_analytical = jax.device_get(solve_analytical(x1, t2))
+
+# +
+plt.title("Analytic vs LNN")
+plt.xlabel("Time") ; plt.ylabel("State")
+plt.plot(t2, x1_analytical[:, 2], 'g-', label=r'$\theta_1$ exact')
+plt.plot(t2, x1_analytical[:, 3], 'c-', label=r'$\theta_2$ exact')
+plt.plot(t2, x1_model[:, 2], 'g--', label=r'$\theta_1$ LNN')
+plt.plot(t2, x1_model[:, 3], 'c--', label=r'$\theta_2$ LNN')
+plt.legend(fontsize=6)
+
+plt.tight_layout() ; plt.show()
+# -
 
 L1, L2 = 1, 1
 theta1_ana, theta2_ana = x1_analytical[:, 0], x1_analytical[:, 1]
@@ -158,4 +171,101 @@ def cart_error_over_time(cart_coords_model, cart_coords_ana):
 
 cart_error_over_time(cart_coords_model, cart_coords_ana)
 
+x11, y11, x21, y21 = cart_coords_ana
+x12, y12, x22, y22 = cart_coords_model
+
+# +
+fig = plt.figure(figsize=(8.3333, 6.25), dpi=72)
+ax = fig.add_subplot(111)
+
+import warnings
+warnings.filterwarnings("ignore")
+
+images = []
+di = 1
+N = 300
+for i in range(0, N, di):
+  print("{}/{}".format(i // di, N // di), end='\n' if i//di%20==0 else ' ')
+  make_plot(i, cart_coords_ana, 1, 1)
+  images.append( fig2image(fig) )
+
+importlib.reload(proglog)
+print("True (analytical) dynamics of the double pendulum:")
+proglog.default_bar_logger = partial(proglog.default_bar_logger, None)
+analytical_clip = ImageSequenceClip(images, fps=25)
+analytical_clip.write_videofile("DoublePendulumAnalyticalMotion.mp4")
+
+
+# +
+@jax.jit
+def kinetic_energy(state, m1=1, m2=1, l1=1, l2=1, g=9.8):
+    q, q_dot = jnp.split(state, 2)
+    (t1, t2), (w1, w2) = q, q_dot
+
+    T1 = 0.5 * m1 * (l1 * w1)**2
+    T2 = 0.5 * m2 * ((l1 * w1)**2 + (l2 * w2)**2 + 2 * l1 * l2 * w1 * w2 * jnp.cos(t1 - t2))
+    T = T1 + T2
+    return T
+
+@jax.jit
+def potential_energy(state, m1=1, m2=1, l1=1, l2=1, g=9.8):
+    q, q_dot = jnp.split(state, 2)
+    (t1, t2), (w1, w2) = q, q_dot
+
+    y1 = -l1 * jnp.cos(t1)
+    y2 = y1 - l2 * jnp.cos(t2)
+    V = m1 * g * y1 + m2 * g * y2
+    return V
+
+
+# +
+def plot_theta_error():
+    tall = np.array(tall)
+fig, ax = plt.subplots(2, 2, sharey=True)
+
+
+for i in range(2):
+
+    if i == 1:
+        start = 1400
+        end = 1500
+    if i == 0:
+        start = 0
+        end = 100
+        
+    dom = np.linspace(start/10, end/10, num=end-start)
+    ax[0, i].plot(dom, pred_tall[start:end, 0], label='LNN')#[:100, 0])
+    ax[0, i].plot(dom, pred_tall_b[start:end, 0], label='Baseline')#[:100, 0])
+    ax[0, i].plot(dom, new_dataset['x'][start:end, 0], label='Truth')
+    # ax[0].set_xlabel('Time')
+    ax[1, i].plot(dom, -new_dataset['x'][start:end, 0] + pred_tall[start:end, 0],
+              label='LNN')#[:100, 0])
+    ax[1, i].plot(dom, -new_dataset['x'][start:end, 0] + pred_tall_b[start:end, 0],
+              label='Baseline')#[:100, 0])
+    if i == 0:
+        ax[0, i].set_ylabel(r'$\theta_1$')
+        ax[1, i].set_ylabel(r'Error in $\theta_1$')
+    
+    ax[1, i].set_xlabel('Time')
+    if i == 0:
+        ax[0, i].legend()
+        ax[1, i].legend()
+    
+
+for i in range(2):
+    ax[i, 0].spines['right'].set_visible(False)
+    ax[i, 1].spines['left'].set_visible(False)
+#     ax[i, 0].yaxis.tick_left()
+#     ax[i, 0].tick_params(labelright='off')
+    ax[i, 1].yaxis.tick_right()
+
+for i in range(2):
+    d = .015 # how big to make the diagonal lines in axes coordinates
+    # arguments to pass plot, just so we don't keep repeating them
+    kwargs = dict(transform=ax[i, 0].transAxes, color='k', clip_on=False)
+    ax[i, 0].plot((1-d,1+d), (-d,+d), **kwargs)
+    ax[i, 0].plot((1-d,1+d),(1-d,1+d), **kwargs)
+    kwargs.update(transform=ax[i, 1].transAxes)  # switch to the bottom axes
+    ax[i, 1].plot((-d,+d), (1-d,1+d), **kwargs)
+    ax[i, 1].plot((-d,+d), (-d,+d), **kwargs)
 
