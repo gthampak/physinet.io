@@ -1,4 +1,5 @@
 
+
 # PeNNdulum
 
 ## Comparing Reservoir Computing, Lagrangian, and Hamiltonian Neural Networks' Forecasts of Chaotic Systems in Physics
@@ -14,9 +15,9 @@
 
 ### Introduction
 
-Lagrangian and Hamiltonian neural networks (LNN and HNN) output the Lagrangian and Hamiltonian equations for a system in motion. They were both developed for extremely physics-specific tasks, and this makes them relatively narrow in their scope. We seek to explore if they are capable of outperforming a more general-purpose neural network that is highly successful at predicting the behavior of chaotic systems, Reservoir Computing (RC). The task we will be using for comparison is the mechanics-based problem of forecasting the motion of a chaotic double pendulum. To verify this, we will train these networks on a dataset involving the IBM double pendulum dataset, which consists of the the initial conditions and four frames of the pendulums initial motion, and then 200 frames of its subsequent path of motion. If RC outperforms the two physics-specific networks, then the utility of these networks substantially decreases. However, in this case, we expect LNN and HNN to surpass RC, as the most common mathematical way to solve for the equations of motion for a double pendulum is by first solving the Lagrangian or Hamiltonian. 
+Lagrangian and Hamiltonian neural networks (LNN and HNN) output the Lagrangian and Hamiltonian equations for a system in motion. They were both developed for extremely physics-specific tasks, and this makes them relatively narrow in their scope. We seek to explore if they are capable of outperforming a more general-purpose neural network that is highly successful at predicting the behavior of chaotic systems, Reservoir Computing (RC). The task we will be using for comparison is the mechanics-based problem of forecasting the motion of a chaotic double pendulum. To verify this, we will train these networks on a dataset involving the IBM double pendulum dataset, which consists of the initial conditions and four frames of the pendulum's initial motion, and then 200 frames of its subsequent path of motion. If RC outperforms the two physics-specific networks, then the utility of these networks substantially decreases. However, in this case, we expect LNN and HNN to surpass RC, as the most common mathematical way to solve for the equations of motion for a double pendulum is by first solving the Lagrangian or Hamiltonian. 
 
-To get an understanding of the performance of each of these neural networks against a more common baseline model, we will also be comparing all three of these models against a recurrent-neural network that will serve as the control. Though recurrent neural networks do not display the same chaos-forecasting abilities of reservoir computing, but is a good baseline for sequential systems.
+To get an understanding of the performance of each of these neural networks against a more common baseline model, we will also be comparing all three of these models against a recurrent-neural network that will serve as the control. Though recurrent neural networks do not display the same chaos-forecasting abilities of reservoir computing, it is a good baseline for sequential systems.
 
 Finally, to test the validity of each model on new and physical data. We will be taking multiple videos of a double pendulum provided by the Pomona College physics department, reading in its initial conditions and four frames of its initial motion, and then running each model on this system to determine its subsequent path. We will then validate this against its actual path and check for divergence. This will help us understand how each model works in a noisier system, as the IBM dataset was constructed with cutting-edge equipment and a fine-tuned system.
 
@@ -24,51 +25,49 @@ Finally, to test the validity of each model on new and physical data. We will be
 
 Similar work on chaotic systems and the double pendulum has been done before. Klinkachorn and Parmar at Stanford characterized the performance of neural networks on double pendulum's as the starting angle between the two pendulum arm's began to vary. However, they tested a range of machine learning algorithms and models, including linear regression, autoregression, feed-forward neural networks, and long-short term memory networks. Rudy et al. also demonstrated a novel method to train models that seek to fit dynamical systems on noisy data, and in this paper compare increasing levels of variance that arise when a neural network is used to predict an increasingly noisy double pendulum input.
 
-Although sharing multiple similiarities, our work primarily differs in that we seek to test models that hypothetically ought to perform quite well on this task. The RNN, a more primitive analog to the LSTM, is simply used as a baseline instead of as the most advanced model, and we extend upon prior work by testing LNN, HNN, and RC on the double pendulum task.
-
-### Ethics Discussion (Possible Ethical Implications/ideas)
-
- A possible ethical issue in this instance is the use of overideal training data. The IBM double pendulum dataset that is used for training is a dataset that is clean and not noisy: it is filmed with a high speed camera in a controlled environment, with carefully measured axis markers and angular values. However, it is possible that the models we train with this dataset are incapable of handling a noisy system, such as validation on a user-generated double pendulum path. We will analyze this issue in our validation of each model with the Pomona College double pendulum. 
- 
- This ethical implication has far reaching issues in multiple areas. If a trained model is only able to operate in the space of clean data, then in certain edge-cases or uncommon cases, the model will experience a high error rate. This is especially alarming in areas such as facial or speech recognition, where there may be high amounts of variation in the noisiness of images or audio, and error may result in a range of consequences from inconvenience to life-changing.
-
-***
+Although sharing multiple similarities, our work primarily differs in that we seek to test models that hypothetically ought to perform quite well on this task. The RNN, a more primitive analog to the LSTM, is simply used as a baseline instead of as the most advanced model, and we extend upon prior work by testing LNN, HNN, and RC on the double pendulum task.
 
 ### Methods
 
-We will be training and optimizing a recurrent neural network, echo state network (reservoir computing), a Hamiltonian Neural Network, and a Lagrangian Neural Network. The recurrent neural network will be trained with PyTorch, the echo state network will most likely be trained with Python library "easy-esn", "pytorch-esn", or "EchoTorch", and the Hamiltonian Neural Network and Lagrangian Neural Networks will most likely be constructed from scratch. Notebooks outlining methodologies for the HNN and LNN exist, making their training a lot less daunting.
+#### Overview
 
-The datasets we will be using are the IBM double pendulum dataset, and we plan on building our own dataset with some computer vision code and a double pendulum setup provided by Pomona College Physics Department. The IBM dataset will be used for training, and our self-made dataset will be used for testing on a noisier system.
+The datasets used are the [IBM](https://ibm.github.io/double-pendulum-chaotic-dataset/) double pendulum dataset and a double pendulum simulation simulated dataset (which we wrote from scratch). The IBM dataset was generated from 21 different 40-second double pendulum sequences of 17500 annotated frames. Initially, we planned on building our own dataset with some computer vision code and a double pendulum setup provided by Pomona College Physics Department to test our trained networks on noisy systems (real world double pendulum), however we did not have time to complete this task. The simulated dataset, the IBM dataset, and computer vision dataset provides us with data on the same system with increasing levels of noise.
 
-For analysis, we will be writing some graphing functions that allow for the graphing of the path of the double pendulum overtime. We can overlay the theoretical paths with the nn-generated paths to get a clear visual representation of how networks perform. Other more statistical metrics, such as comparison through a confusion matrix, F1 score comparison, etc. will also be compared.
+We trained and optimized a recurrent neural network, an echo state network (reservoir computing), and a Lagrangian Neural Network (did not get to Hamiltonian Neural Network). We used PyTorch to implement and train our recurrent neural network and [ReservoirPy](https://github.com/reservoirpy/reservoirpy) to implement and train our echo state network. ReservoirPy is a library on github based on Python scientific libraries used as a tool to help implement efficient Reservoir Computing Neural Networks, specifically Echo State Networks. In the process of exploring ESN libraries, we also looked at "easy-esn", "pytorch-esn", or "EchoTorch". Because Lagrangian Neural Networks are more physics and mathematics intensive and unique than mainstream neural networks, ours was constructed from scratch using existing examples online and on github. The work we relied relatively heavily on in the construction of our Lagrangian Neural Network is Miles Cranmer et al.’s [paper](https://arxiv.org/abs/2003.04630) and [github repo]((https://github.com/MilesCranmer/lagrangian_nns)) on LNNs with dependencies on more mainstream Python libraries including Jax, NumPy, MoviePy, and celluloid, with the latter two used for visualization purposes.
 
-- Preprocessing
+For analysis, we wrote graphing functions that emulates paths of the double pendulums under different initial conditions over time consistent with the laws of physics. We overlaid the theoretical paths with our network-generated paths to get a clear visual representation of how the different networks perform. Initially, we also planned to compare other statistical metrics, such as comparison through a confusion matrix, and F1 score comparison, but did not get to it in time.
 
-Pre-processing involves unpacking and preparing the dataset for training uses. The dataset contains raw data of initial conditions and then 2000 frames of the pendulum path. To make this usable for our training model, we must apply a set of transformations. We first convert the raw coordinates to pixel (cartesian) coordinates, and then transform those to polar coordinates. We want to use polar coordinates here as they encode information on both position and angle, which is especially effective for coupled oscillators. The data can now be fed into the network for training.
+- Data Wrangling and Preprocessing
+
+Pre-processing involves unpacking and preparing the dataset for training uses. The datasets contain raw data of initial conditions and 2000 frames of the pendulum path. To make this usable for our training model, we first converted the raw coordinates to pixel (cartesian) coordinates, and then transformed those to polar coordinates. We decided to use polar coordinates as they encode information on both position and angle, which is especially effective for coupled oscillators. The data can now be fed into the network for training. We then separated our datasets into training data (for feeding into our networks) and training data for final network evaluations and network comparisons.
 
 - Recurrent-Neural Network
 
-The recurrent neural network will be set up using PyTorch libraries. We will be simply feeding it training data and performing hyperparameter optimization to receive a baseline model.
+The recurrent neural network was set up using PyTorch libraries. We fed training data into the network and performed hyperparameter optimization to attain a baseline model.
 
 - Reservoir Computing
 
-We will be training the echo state network through one of the afformentioned Python libraries. We will also be performing hyperparameter optimization on this model as well. However, it will differ from traditional neural networks, as we will be iterating ESN specific parameters such as number of reservoirs, leaking rate, spectral radius, and regression parameters.
+We trained the echo state network through ReservoirPy Python libraries. We also performed hyperparameter optimization on this model as well. The hyperparameter process differed from traditional neural networks (RNN), as we iterated through ESN specific parameters such as number of reservoirs, leaking rate, spectral radius, and regression parameters.
 
-- Hamiltonian Neural Network and Lagrangian Neural Network
+- Lagrangian Neural Network (and possible Hamiltonian Neural Network extension)
 
-The Lagrangian and Hamiltonian Neural Network must be written from scratch as their underlying mathematical equations and layers differ from conventional neural networks. However, notebooks demonstrating both networks are provided alongside the papers, thus simplifying the task a bit. Furthermore, optimal hyperparameters are also provided by the researchers, thus we do not need to optimize those networks.
+The Lagrangian (and Hamiltonian) Neural Network was written from scratch as their underlying mathematical equations and layers differ from conventional neural networks. Our code was written based on existing notebooks that have implemented these networks, most of which accompany their research papers from the same authors (see literature review of papers and links to code). For these networks, optimal hyperparameters are provided by the researchers and authors, so we did not have to optimize the parameters ourselves.
 
-To compare these networks, we will be looking at validation loss, accuracy, and F1 score and comparing how well they perform on the testing set that is segmented from the IBM dataset. We will also be vetting each of these models on our noisey Pomona College double pendulum to see how well each model handles deviation from ideal circumstances. 
+- Comparison and Results
 
-### Discussion / Result
+To compare these networks, we looked at validation loss and accuracy, and comparing how well they perform on the testing set that was segmented from the IBM dataset. We will also be vetting each of these models on our noisey Pomona College double pendulum to see how well each model handles deviation from ideal circumstances.
+
+### Discussion
+
+#### Results and Network Comparisons
 
 After building a LSTM model, a LNN model and trying to build an ESN model, we have find out the following:
 
-- Current ESN packages available are all poorly documented, and since our project is essentially performing multifeature time sequence forecast, which adds a dimension to the input data, most of these packages are non-compatible. In the rare case where we get it to predict the correct dimensioned data, the output is far off from the target data. One thing I have noticed is that the target angular values are often changing non-linearly, but the prediction are highly linear.
+Current ESN packages available are all poorly documented, and since our project is essentially performing multifeature time sequence forecast, which adds a dimension to the input data, most of these packages are non-compatible. In the rare case where we get it to predict the correct dimensioned data, the output is far off from the target data. One thing I have noticed is that the target angular values are often changing non-linearly, but the prediction are highly linear.
 
-- The LSTM model is able to produce correctly shaped data that make a vague sense. Eyeballing the output shows that it is somewhat related to the target, but after ploting the predicted coordinates, the prediction only shares the overall direction of the target, and is no where near being accurate. With the 4 input values all ranging between -1 and 1, we are getting loss of about 0.2, which is quite high.
+The LSTM model is able to produce correctly shaped data that makes a vague sense. Eyeballing the output shows that it is somewhat related to the target, but after plotting the predicted coordinates, the prediction only shares the overall direction of the target, and is nowhere near being accurate. With the 4 input values all ranging between -1 and 1, we are getting a loss of about 0.2, which is quite high.
 
-- The LNN model demonstrate a accurate prediction of the pendulum for the first few prediction frams, but once there is considerable error, the error propagates quickly throughout the system and make the prediction unrealiable. However, this make sense since double pendulum is such a chaotic system and error propagates easily. Also, LNN prediction seems to follow the actual physical rules and conserve energy and momentum while making the prediction, which is a virtue most neural networks lack.
+- The LNN model demonstrates an accurate prediction of the pendulum for the first few prediction frame, but once there is considerable error, the error propagates quickly throughout the system and make the prediction unreliable. However, this make sense since double pendulum is such a chaotic system and error propagates easily. Also, LNN prediction seems to follow the actual physical rules and conserve energy and momentum while making the prediction, which is a virtue most neural networks lack.
 
 The discussion section will be presenting the plots made from the LSTM and LNN models, and provide the corresponding loss.
 
@@ -77,6 +76,30 @@ The interpretation goes in the paragraphs above.
 This result proves our assumption that all 3 of RNN (LSTM), ESN and LNN are not very accurate at predicting double pendulum, but overall RNN < LNN (ESN not included since unfortunately it has not been working). This also proves our assumption that LNN makes a physically credible prediction and is able to learn the actual physical rules of the system.
 
 The result section should also feature a discussion of how and why ESN failed to work.
+
+#### Ethical Implication and Discussion
+
+A possible ethical issue in this instance is the use of overideal training data. The IBM double pendulum dataset that is used for training is a dataset that is clean and not noisy: it is filmed with a high speed camera in a controlled environment, with carefully measured axis markers and angular values. However, it is possible that the models we train with this dataset are incapable of handling a noisy system, such as validation on a user-generated double pendulum path. We will analyze this issue in our validation of each model with the Pomona College double pendulum. 
+ 
+This ethical implication has far reaching issues in multiple areas. If a trained model is only able to operate in the space of clean data, then in certain edge-cases or uncommon cases, the model will experience a high error rate. This is especially alarming in areas such as facial or speech recognition, where there may be high amounts of variation in the noisiness of images or audio, and error may result in a range of consequences from inconvenience to life-changing.
+
+***
+
+### Reflection
+
+What would you do differently next time?
+
+- Reach out to authors and researchers much earlier in the process and ask for help. It turned out that they were pretty responsive and excited that there are people working on extensions to their projects. If we did it earlier, we think our jobs would have been much easier. We also should have started training our networks earlier so we would have more time to make adjustments and tune our hyperparameters more.
+- Do more readings earlier on.
+- Spend more time training each network.
+- Ask more questions.
+- Do more research on how to compare different kinds of Neural Networks and how to make sure we're not putting in more time or effort into one or the other. Example: theoretically LNNs are supposed to perform the best. But did it perform the best in our research because of reseacher bias or because it actually did?
+
+How would you continue this work (e.g., what extensions would you pursue)?
+
+- Hamiltonian network.
+- Work on all three kinds of datasets more completely.
+- Use more statistical metrics for network comparison.
 
 ***
 
