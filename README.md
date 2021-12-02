@@ -87,6 +87,8 @@ forecase = 1            #use the next following frame as label.
 
 The ESN trains on entire time series and use the same serie (but one frame later) as label. The network turns out to be extremely inaccurate in learning and predicting the movement of the end joint of the double pendulum.
 
+When we train the model, we noticed that there are 3 sample sequences that induced extremely high MSE error. To protect the network from such "pollution", we had to remove the 3 sequences by hand.
+
 First of all, the prediction accuracy does not depend on the size of the training data. We first trained the ESN on each sample sequence, tested the prediction error (MSE), and then reset the model to untrained state. We then trained another model on the entire dataset (40 sequence) without reset. Figure 1(a) shows the MSE with/without resetting. Figure 1(b) compares the errors from the two models.
 
 ![Figure 1](plots/train_size_comp.png)
@@ -108,7 +110,11 @@ The results is shown below:
 
 We see that extremrely small `leak_rate` induce significantly larger MSE difference both above and beyond 0, which means it is highly unstable. Comparing `0.05` and `0,1`, we find that lowering `leak_rate` results in difference mostly below 0, which means in that case larger training size generally gives smaller error. However, It is also most unstable since there are cases where larger training dataset induced significantly high error.
 
-Another way we can see the ineffectiveness of larger training data is that, in the no resetting case, our $x$ axis can be treated as time passed, and we see that the MSE does not shown any decrease pattern (see fig1a).
+Another way we can see the ineffectiveness of larger training data is that, in the no resetting case, our $x$ axis can be treated as time passed, and we see that the MSE does not shown any decrease pattern (see fig 1a).
+
+The discussion above shows how the ESN model is not making valid predictions. Our main assumption is that the motion of the double pendulumn is overall circular. When more data are fed into the network, it learns nothing else but the circular motion. When less data are fed, either there are not enough data to learn from, or that it can only learn the local movement (which is often quite linear). The latter case also explaines why sometimes the prediction gives a linear trajectory that goes way beyond reasonable value -- It could have learnt a linear trend.
+
+The thing about ESN and double pendulum is that, since double pendulum is a second order system, the error propagates throughout the system quickly, and combined with a flawed dataset, predicting become extremely difficult.
 
 The discussion section will be presenting the plots made from the LSTM and LNN models, and provide the corresponding loss.
 
