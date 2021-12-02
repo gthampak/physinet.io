@@ -93,7 +93,7 @@ To compare these 3 networks, we looked at validation loss and accuracy, and comp
 
 We observe the predicted trajectories of each of the models overtime as well as an analytically solved solution:
 
-![Analytical Results](plots/LNN_pendulum_positions_analytic.png) ![LNN Results](plots/LNN_pendulum_positions_model.png) ![ESN Results](plots/ESN_pendulum_positions_model.png)
+![Analytical Results](plots/LNN_pendulum_positions_analytic.png) ![LNN Results](plots/LNN_pendulum_positions_model.png) ![ESN Results](plots/ESN_pendulum_positions_model.png) ![LSTM Results](plots/LSTM_pendulum_position_model.png)
 
 We can also visualize each of these positions continuously in a video:
 
@@ -134,9 +134,9 @@ However, this error during multi-timestep forecasting makes sense since double p
 Our ESN model takes as input the triangular functions of the angles formed by the arms and the vertical line. The key hyperparameters for our network are as follows:
 
 ```python
-leak_rate = 0.1         #Decides the memory size of the reservoir. higher value means shorter memory.
-spectral_radius = 25.0  #Higher values apply for more chaotic system
-input_scaling = 0.5     #Smaller (towards 0) -> free behavior, larger (towards 1) -> input-driven behavior
+leak_rate = 0.1         #Decides the "memory size". higher value -> shorter memory
+spectral_radius = 25.0  #Higher values -> chaotic system
+input_scaling = 0.5     #Smaller (-> 0) -> free behavior, larger (-> 1) -> input-driven
 regularization = 1e-7   #ridge optimization parameter.
 forecase = 1            #use the next following frame as label.
 ```
