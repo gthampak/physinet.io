@@ -71,7 +71,7 @@ We observe the predicted trajectories of each of the models overtime as well as 
 
 We can also visualize each of these positions continuously in a video:
 
-![Analytical Results](https://github.com/gthampak/physinet.io/raw/main/plots/DoublePendulumAnalyticMotion.mp4) ![LNN Results](https://github.com/gthampak/physinet.io/raw/main/plots/LNNDoublePendulumMotion.mp4) ![ESN Results](https://github.com/gthampak/physinet.io/raw/main/plots/ESNDoublePendulumMotion.mp4)
+![Analytical Results](plots/analytic.gif) ![LNN Results](plots/lnn.gif) ![ESN Results](plots/esn.gif)
 From the video, one clear advantage of the LNN in the case of this system, is its preservation of physics. Though the path traced does not perfectly align with the analytical solution, the LNN conserves energy in the system, and the total amount of potential and kinetic energy are balanced accordingly. However, the ESN does not abide by the laws of physics, and tends to move about randomly and disobey gravity as well as conservation of energy.
 
 From this broad overview, it is quite obvious that the LNN seems to match the analytical solution the most, while the ESN completely departs from the analytical solution. Taking a look at difference between the distance between x and y positions of the analytical solution and each model prediction, as well as the difference between the angles produced by the analytical solution and the model predictions, we see the following:
