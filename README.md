@@ -21,7 +21,18 @@ To get an understanding of the performance of each of these neural networks agai
 
 Finally, to test the validity of each model on new and physical data. We will be taking multiple videos of a double pendulum provided by the Pomona College physics department, reading in its initial conditions and four frames of its initial motion, and then running each model on this system to determine its subsequent path. We will then validate this against its actual path and check for divergence. This will help us understand how each model works in a noisier system, as the IBM dataset was constructed with cutting-edge equipment and a fine-tuned system.
 
-### Relative works
+#### The Double Pendulum
+
+We choose double pendulum forecasting as our task as it is a dynamical system that is governed by a set of ordinary differential equations that yield substantial chaos. The system consists of a single pendulum with another one attached to the first pendulum's end.
+
+`TODO:` add multiple side by side video comparisons of different initial conditions
+
+From the above videos, we observe that slight differences in the initial conditions of the system result in drastically different paths and trajectories. This makes the system extraordinarily hard to forecast, for slight deviations in path result in substantial error. We can observe this in the equations of motion:
+
+<center><img src="plots/dbl_pend_sample.png" width="325" /></center>
+
+
+### Related works
 
 Similar work on chaotic systems and the double pendulum has been done before. Klinkachorn and Parmar at Stanford characterized the performance of neural networks on double pendulum's as the starting angle between the two pendulum arm's began to vary. However, they tested a range of machine learning algorithms and models, including linear regression, autoregression, feed-forward neural networks, and long-short term memory networks. Rudy et al. also demonstrated a novel method to train models that seek to fit dynamical systems on noisy data, and in this paper compare increasing levels of variance that arise when a neural network is used to predict an increasingly noisy double pendulum input.
 
@@ -72,12 +83,14 @@ We observe the predicted trajectories of each of the models overtime as well as 
 We can also visualize each of these positions continuously in a video:
 
 <p float="left">
-  <img src="plots/analytic.gif" width="350" />
-  <img src="plots/lnn.gif" width="350" />
-  <img src="plots/esn.gif" width="350" />
+  <img src="plots/analytic.gif" width="325" />
+  <img src="plots/lnn.gif" width="325" />
+  <img src="plots/esn.gif" width="325" />
 </p>
+<center>From left to right, the analytical video, LNN predicted, and ESN predicted double pendulum path </center>
+<br>
 
-From the video, one clear advantage of the LNN in the case of this system, is its preservation of physics. Though the path traced does not perfectly align with the analytical solution, the LNN conserves energy in the system, and the total amount of potential and kinetic energy are balanced accordingly. However, the ESN does not abide by the laws of physics, and tends to move about randomly and disobey gravity as well as conservation of energy.
+From the video, one clear advantage of the LNN in the case of this system is its preservation of physics. Though the path traced does not perfectly align with the analytical solution, the LNN conserves energy in the system, and the total amount of potential and kinetic energy are balanced accordingly. However, the ESN does not abide by the laws of physics, and tends to move about randomly and disobey gravity as well as conservation of energy.
 
 From this broad overview, it is quite obvious that the LNN seems to match the analytical solution the most, while the ESN completely departs from the analytical solution. Taking a look at difference between the distance between x and y positions of the analytical solution and each model prediction, as well as the difference between the angles produced by the analytical solution and the model predictions, we see the following:
 
@@ -87,8 +100,6 @@ From this broad overview, it is quite obvious that the LNN seems to match the an
 
 Visualizations of error report large differences between analytical solutions and model predictions for both models. Since the double pendulum is a highly chaotic system, any small error in the system will propogate over time, rendering all later predictions to be somewhat different from the analytical solution.
 
-
-
 **LSTM Model**
 
 The LSTM model is able to produce correctly shaped data that makes a vague sense. Eyeballing the output shows that it is somewhat related to the target, but after plotting the predicted coordinates, the prediction only shares the overall direction of the target, and is nowhere near being accurate. With the 4 input values all ranging between -1 and 1, we are getting a loss of about 0.2, which is quite high.
@@ -97,7 +108,11 @@ The LSTM model is able to produce correctly shaped data that makes a vague sense
 
 **LNN Model**
 
-The LNN model demonstrates an accurate prediction of the pendulum for the first few prediction frame, but once there is considerable error, the error propagates quickly throughout the system and make the prediction unreliable. However, this make sense since double pendulum is such a chaotic system and error propagates easily. Also, LNN prediction seems to follow the actual physical rules and conserve energy and momentum while making the prediction, which is a virtue most neural networks lack.
+The LNN model demonstrates an accurate prediction of the pendulum for the first few prediction frame, but once there is considerable error, the error propagates quickly throughout the system and make the prediction unreliable. For single frame predictions however, we still witness reasonable loss decrease over the course of training:
+
+![LNN Loss](plots/LNN_loss.png)
+
+However, this error during multi-timestep forecasting makes sense since double pendulum is such a chaotic system and error propagates easily. Also, LNN prediction seems to follow the actual physical rules and conserve energy and momentum while making the prediction, which is a virtue most neural networks lack.
 
 **ESN Model**
 
