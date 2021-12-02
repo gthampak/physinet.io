@@ -72,12 +72,9 @@ We observe the predicted trajectories of each of the models overtime as well as 
 We can also visualize each of these positions continuously in a video:
 
 <p float="left">
-  <img src="plots/analytic.gif" width="100" />
-  <figcaption>Analytical double pendulum path</figcaption>
-  <img src="plots/lnn.gif" width="100" />
-  <figcaption>LNN predicted double pendulum path</figcaption>
-  <img src="plots/esn.gif" width="100" />
-  <figcaption>ESN predicted double pendulum path</figcaption>
+  <img src="plots/analytic.gif" width="350" />
+  <img src="plots/lnn.gif" width="350" />
+  <img src="plots/esn.gif" width="350" />
 </p>
 
 From the video, one clear advantage of the LNN in the case of this system, is its preservation of physics. Though the path traced does not perfectly align with the analytical solution, the LNN conserves energy in the system, and the total amount of potential and kinetic energy are balanced accordingly. However, the ESN does not abide by the laws of physics, and tends to move about randomly and disobey gravity as well as conservation of energy.
