@@ -63,6 +63,28 @@ To compare these networks, we looked at validation loss and accuracy, and compar
 
 To compare these 3 networks, we looked at validation loss and accuracy, and comparing how well they perform on the testing set that was segmented from the IBM dataset. After building a LSTM model, a LNN model and trying to build an ESN model, we have find out the following:
 
+**General Overview**
+
+We observe the predicted trajectories of each of the models overtime as well as an analytically solved solution:
+
+![Analytical Results](plots/LNN_pendulum_positions_analytic.png) ![LNN Results](plots/LNN_pendulum_positions_model.png) ![ESN Results](plots/ESN_pendulum_positions_model.png)
+
+We can also visualize each of these positions continuously in a video:
+
+![Analytical Results](plots/DoublePendulumAnalyticMotion.mp4) ![LNN Results](plots/LNNDoublePendulumMotion.mp4) ![ESN Results](plots/ESNDoublePendulumMotion.mp4)
+
+From the video, one clear advantage of the LNN in the case of this system, is its preservation of physics. Though the path traced does not perfectly align with the analytical solution, the LNN conserves energy in the system, and the total amount of potential and kinetic energy are balanced accordingly. However, the ESN does not abide by the laws of physics, and tends to move about randomly and disobey gravity as well as conservation of energy.
+
+From this broad overview, it is quite obvious that the LNN seems to match the analytical solution the most, while the ESN completely departs from the analytical solution. Taking a look at difference between the distance between x and y positions of the analytical solution and each model prediction, as well as the difference between the angles produced by the analytical solution and the model predictions, we see the following:
+
+![LNN Error - Distance Between Points](plots/LNN_error_distance.png) ![ESN Error - Distance Between Points](plots/ESN_error_distance.png)
+
+![LNN Error - Difference Between Angles](plots/LNN_theta_error.png) ![ESN Error - Difference Between Angles](plots/ESN_theta_error.png)
+
+Visualizations of error report large differences between analytical solutions and model predictions for both models. Since the double pendulum is a highly chaotic system, any small error in the system will propogate over time, rendering all later predictions to be somewhat different from the analytical solution.
+
+
+
 **LSTM Model**
 
 The LSTM model is able to produce correctly shaped data that makes a vague sense. Eyeballing the output shows that it is somewhat related to the target, but after plotting the predicted coordinates, the prediction only shares the overall direction of the target, and is nowhere near being accurate. With the 4 input values all ranging between -1 and 1, we are getting a loss of about 0.2, which is quite high.
