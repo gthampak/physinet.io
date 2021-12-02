@@ -78,7 +78,7 @@ To compare these 3 networks, we looked at validation loss and accuracy, and comp
 
 We observe the predicted trajectories of each of the models overtime as well as an analytically solved solution:
 
-![Analytical Results](plots/LNN_pendulum_positions_analytic.png) ![LNN Results](plots/LNN_pendulum_positions_model.png) ![ESN Results](plots/ESN_pendulum_positions_model.png)
+![Analytical Results](plots/LNN_pendulum_positions_analytic.png) ![LNN Results](plots/LNN_pendulum_positions_model.png) ![ESN Results](plots/ESN_pendulum_positions_model.png) ![LSTM Results](plots/LSTM_pendulum_position_models.png)
 
 We can also visualize each of these positions continuously in a video:
 
