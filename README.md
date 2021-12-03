@@ -117,9 +117,21 @@ Visualizations of error report large differences between analytical solutions an
 
 **LSTM Model**
 
-The LSTM model is able to produce correctly shaped data that makes a vague sense. Eyeballing the output shows that it is somewhat related to the target, but after plotting the predicted coordinates, the prediction only shares the overall direction of the target, and is nowhere near being accurate. With the 4 input values all ranging between -1 and 1, we are getting a loss of about 0.2, which is quite high.
+We note that the LSTM is not really up to the task. With a 3 layer LSTM model with decreasing hidden layer sizes `[32, 16, 8]`, after training 10 epochs on 100 generated analytical samples, an example trial of generation looks like this:
 
-`TODO:` add some visualization for LSTM (losses, etc.)
+![Model Output](plots/LSTM_pendulum_positions_model.png)![Ground Truth](plots/LSTM_pendulum_positions_analytic.png)
+
+We observe that, although the model learns the spirit of a "chaotic system", it does not really learn the pattern. The outputs are far off from target, and des not even show similar pattern.
+
+Also, the training statistics shows severe overfitting of the data:
+
+![Training and Validating Loss Comparison](plots/LSTM_train_val.png)
+
+We see that over time, the training loss decreases as we expected, but when we validated the model using other simulated data, it does not show similar decrease, hence we can conclude that overfitting happened.
+
+Altering the `learning_rate` does not seem to solve the problem.
+
+`TODO in final version`: add comparison from LSTM.
 
 **LNN Model**
 
