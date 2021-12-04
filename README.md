@@ -103,6 +103,7 @@ We can also visualize each of these positions continuously in a video:
   <img src="plots/analytic.gif" width="350" />
   <img src="plots/fc.gif" width="350" />
 </p>
+
 <center>From left to right, the analytical and FC predicted paths </center>
 
 <p float="left">
@@ -110,6 +111,7 @@ We can also visualize each of these positions continuously in a video:
   <img src="plots/esn.gif" width="300" />
   <img src="plots/lstm.gif" width="300" />
 </p>
+
 <center>From left to right, LNN predicted, ESN predicted, LSTM predicted </center>
 <br>
 
@@ -119,17 +121,15 @@ From this broad overview, it is quite obvious that the LNN seems to match the an
 
 Taking a look at difference between the distance between x and y positions of the analytical solution and each model prediction, as well as the difference between the angles produced by the analytical solution and the model predictions, we see the following:
 
-<center>
-
 ![FC Error - Distance Between Points](plots/FC_error_distance.png) ![LNN Error - Distance Between Points](plots/LNN_error_distance.png) ![ESN Error - Distance Between Points](plots/ESN_error_distance.png) ![LSTM Error - Distance Between Points](plots/LSTM_error_distance.png) 
 
-From left to right, FC, LNN, ESN, LSTM
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;From left to right, FC, LNN, ESN, LSTM
 
 ![FC Error - Difference Between Angles](plots/FC_theta_error.png) ![LNN Error - Difference Between Angles](plots/LNN_theta_error.png) ![ESN Error - Difference Between Angles](plots/ESN_theta_error.png) ![LSTM Error - Difference Between Angles](plots/LSTM_error_angle.png) 
 
-From left to right, FC, LNN, ESN, LSTM
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; From left to right, FC, LNN, ESN, LSTM
 
-</center>
+<br>
 
 Visualizations of error report large differences between analytical solutions and model predictions for both models. Since the double pendulum is a highly chaotic system, any small error in the system will propogate over time, rendering all later predictions to be somewhat different from the analytical solution.
     
