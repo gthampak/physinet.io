@@ -107,9 +107,9 @@ We can also visualize each of these positions continuously in a video:
 <center>From left to right, the analytical and FC predicted paths </center>
 
 <p float="left">
-  <img src="plots/lnn.gif" width="300" />
-  <img src="plots/esn.gif" width="300" />
-  <img src="plots/lstm.gif" width="300" />
+  <img src="plots/lnn.gif" width="350" />
+  <img src="plots/esn.gif" width="350" />
+  <img src="plots/lstm.gif" width="350" />
 </p>
 
 <center>From left to right, LNN predicted, ESN predicted, LSTM predicted </center>
