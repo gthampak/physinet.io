@@ -1,0 +1,117 @@
+Notebook[{Cell[
+TextData[{"Essentially",StyleBox[RowBox[{","," "}]],"what"," ","we"," ","want"," ","to"," ","do"," ","is"," ","take"," ","a"," ","video"," ","of"," ","the"," ","double"," ","pendulum"," ","and"," ","have"," ","very"," ","distinct"," ","different"," ","colored"," ","dots"," ","at"," ","the"," ","base",StyleBox[
+RowBox[{","," "}]],"middle",StyleBox[RowBox[{","," "}]],"and"," ","end"," ","of"," ","the"," ","double"," ","pendulum",StyleBox[
+RowBox[{"."," "}]],"Ideally",StyleBox[RowBox[{","," "}]],"every"," ","image"," ","will"," ","have"," ","captured"," ","the"," ","three"," ","dots"," ","and"," ","this"," ","program"," ","will"," ","be"," ","able"," ","to"," ","distinguish"," ","where"," ","each"," ","dot"," ","is",StyleBox[
+RowBox[{"."," "}]],"This"," ","will"," ","let"," ","us"," ","graphically"," ","track"," ","where"," ","each"," ","part"," ","of"," ","the"," ","pendulum"," ","is"," ","over"," ","time"," ","based"," ","off"," ","the"," ","location"," ","of"," ","two"," ","of"," ","the"," ","colored"," ","dots","."}],
+"Text",ExpressionUUID -> "c72672e0-39ab-48cd-83ab-76e46575abca"],Cell[
+TextData[{"Use"," ","the"," ","function",StyleBox[
+RowBox[{" ",StyleBox["\"",FontWeight -> Bold]}]],StyleBox["SetDirectory",FontWeight -> Bold],StyleBox[
+"[",FontWeight -> Bold],StyleBox["directory",FontWeight -> Bold],StyleBox[" ",FontWeight -> Bold],StyleBox[
+"path",FontWeight -> Bold],StyleBox[" ",FontWeight -> Bold],StyleBox["goes",FontWeight -> Bold],StyleBox[
+" ",FontWeight -> Bold],StyleBox["here",FontWeight -> Bold],StyleBox[RowBox[{StyleBox[
+"];\"",FontWeight -> Bold]," "}]],"to"," ","set"," ","the"," ","directory"," ","where"," ","the"," ","files"," ","of"," ","the"," ","video"," ","to"," ","pictures"," ","are",StyleBox[
+RowBox[{"."," "}]],"These"," ","will"," ","be"," ","in"," ","a"," ","folder"," ","that"," ","contains"," ","a"," ","sequence"," ","of"," ","frames"," ","from"," ","a"," ","video"," ","of"," ","a"," ","double"," ","pendulum",StyleBox[
+RowBox[{"."," "}]]}],"Text",ExpressionUUID -> "c9797284-36d0-4284-98a0-a9eed473b70b"],Cell[
+TextData[
+{"Set"," ","up"," ","variables"," ","to"," ","use",StyleBox[RowBox[{"."," "}]],"Reminder"," ","to"," ","switch"," ","the",StyleBox[
+RowBox[{" ","."}]],"jpg"," ","to"," ","whatever"," ","format"," ","the"," ","image"," ","files"," ","are"," ","in","."}],
+"Text",ExpressionUUID -> "f1d78ae9-2d0d-427f-b156-72a4e39a8c95"],Cell[
+BoxData[{RowBox[
+{RowBox[{"picNames"," ","="," ",RowBox[{"FileNames","[","\"*.jpg\"","]"}]}],";"}],"\n",RowBox[
+{RowBox[{"num"," ","="," ",RowBox[{"Length","[","picNames","]"}]}],";"}],"\n",RowBox[
+{RowBox[{"pic1"," ","="," ",RowBox[{"Import","[",RowBox[{"picNames","[",RowBox[{"[","1","]"}],"]"}],"]"}]}],";"}],"\n",RowBox[
+{RowBox[{"Show","[","pic1","]"}],";"}]}],"Input",ExpressionUUID -> "ed2c66a1-40fd-4c41-af69-5f6c484b5c33"],Cell[
+TextData[
+{"This"," ","shows"," ","the"," ","first"," ","picture"," ","in"," ","the"," ","list",StyleBox[
+RowBox[{"."," "}]],"By"," ","hovering"," ","over"," ","the"," ","output"," ","while"," ","holding"," ","control",StyleBox[
+RowBox[{","," "}]],"we"," ","can"," ","find"," ","the"," ","coordinates"," ","of"," ","the"," ","pixel"," ","that"," ","shows"," ","the"," ","position"," ","that"," ","we"," ","want"," ","in"," ","our"," ","image",StyleBox[
+RowBox[{"."," "}]],"In"," ","this"," ","notebook"," ","we"," ","will"," ","assume"," ","that"," ","the"," ","colors"," ","of"," ","the"," ","pixels"," ","we"," ","want"," ","to"," ","distinguish"," ","are"," ","red"," ","and"," ","green"," ","and"," ","the"," ","center"," ","dot"," ","is"," ","white","."}],
+"Text",ExpressionUUID -> "c88eb721-4786-4883-b6b9-d7e57522dd74"],Cell[
+TextData[{"We"," ","can"," ","use"," ","the"," ","functions"," ","redQ","[","x",StyleBox[
+RowBox[{"]"," "}]],"and"," ","greenQ","[","x",StyleBox[RowBox[{"]"," "}]],"to"," ","set"," ","threshold's"," ","to"," ","a"," ","function"," ","which"," ","can"," ","search"," ","each"," ","image's"," ","pixels"," ","and"," ","identify"," ","the"," ","location"," ","of"," ","each"," ","dot","."}],
+"Text",ExpressionUUID -> "8a4c1f12-bf90-4d25-bf3e-4ed6ab75509c"],Cell[
+TextData[{"redQ","[","x",StyleBox[
+RowBox[{"]"," "}]],"returns"," ","True"," ","if"," ","the"," ","pixel"," ","x"," ","meets"," ","the"," ","RGB"," ","threshold"," ","for"," ","the"," ","color"," ","red",StyleBox[
+RowBox[{"."," "}]],"greenQ","[","x",StyleBox[RowBox[{"]"," "}]],"returns"," ","True"," ","if"," ","the"," ","pixel"," ","x"," ","meets"," ","the"," ","RGB"," ","threshold"," ","for"," ","the"," ","color"," ","green","."}],
+"Text",ExpressionUUID -> "2b3af78a-4a19-4f0b-ad0d-ed2d33e3a49c"],Cell[
+BoxData[{RowBox[
+{RowBox[{"redQ","[","x_","]"}],":="," ",RowBox[{RowBox[{"(",RowBox[{RowBox[{"x","[",RowBox[
+{"[","1","]"}],"]"}]," ",">"," ","50"}],")"}]," ","&&"," ",RowBox[{"(",RowBox[{RowBox[
+{"x","[",RowBox[{"[","2","]"}],"]"}]," ","<"," ","50"}],")"}]," ","&&"," ",RowBox[
+{"(",RowBox[{RowBox[{"x","[",RowBox[{"[","3","]"}],"]"}]," ","<"," ","50"}],")"}]}]}],"\n",RowBox[
+{RowBox[{"greenQ","[","x_","]"}]," ",":="," ",RowBox[{RowBox[{"(",RowBox[{RowBox[
+{"x","[",RowBox[{"[","1","]"}],"]"}]," ","<"," ","50"}],")"}]," ","&&"," ",RowBox[
+{"(",RowBox[{RowBox[{"x","[",RowBox[{"[","2","]"}],"]"}]," ",">"," ","50"}],")"}]," ","&&"," ",RowBox[
+{"(",RowBox[{RowBox[{"x","[",RowBox[{"[","3","]"}],"]"}]," ","<"," ","50"}],")"}]}]}]}],
+"Input",ExpressionUUID -> "f7091c35-9a37-4cb8-9812-0bf706219921"],Cell[
+TextData[
+{"With"," ","these"," ","threshold"," ","functions",StyleBox[RowBox[{","," "}]],"we"," ","can"," ","apply"," ","them"," ","to"," ","each"," ","pixel"," ","in"," ","all"," ","the"," ","images",StyleBox[
+RowBox[{"."," "}]]}],"Text",ExpressionUUID -> "ab472169-e8f2-4129-944d-4e0894fa4c9a"],Cell[
+BoxData[
+{RowBox[{RowBox[{"RGcenters"," ","="," ",RowBox[{"Table","[","\n",RowBox[{RowBox[
+{RowBox[{"picture"," ","="," ",RowBox[{"Import","[",RowBox[{"picnames","[",RowBox[
+{"[","k","]"}],"]"}],"]"}]}],";","\n",RowBox[{"pic"," ","="," ",RowBox[{"Flatten","[",RowBox[
+{RowBox[{"picture","[",RowBox[{"[",RowBox[{"1",",","1"}],"]"}],"]"}],",","1"}],"]"}]}],";","\n","\n",RowBox[
+{"redSpots"," ","="," ",RowBox[{"Select","[",RowBox[{"pic",","," ","redQ"}],"]"}]}],";","\n",RowBox[
+{"redPos"," ","="," ",RowBox[{"Map","[",RowBox[{RowBox[{RowBox[{"Position","[",RowBox[
+{RowBox[{"picture","[",RowBox[{"[",RowBox[{"1",",","1"}],"]"}],"]"}],","," ","#"}],"]"}]," ","&"}],","," ","redSpots"}],"]"}]}],";","\n",RowBox[
+{"truexyred"," ","=",RowBox[{"Map","[",RowBox[{"Reverse",","," ",RowBox[{"Flatten","[",RowBox[
+{"redPos",","," ","1"}],"]"}]}],"]"}]}],";"," ","\n",RowBox[{"truexyredx"," ","=",RowBox[
+{"truexyred","/.",RowBox[{RowBox[{"{",RowBox[{"x_",","," ","y_"}],"}"}],"\[Rule]","x"}]}]}],";","\n",RowBox[
+{"truexyredy"," ","=",RowBox[{"truexyred","/.",RowBox[{RowBox[{"{",RowBox[{"x_",","," ","y_"}],"}"}],"\[Rule]","y"}]}]}],";","\n","\n",RowBox[
+{"greenSpots"," ","="," ",RowBox[{"Select","[",RowBox[{"pic",","," ","greenQ"}],"]"}]}],";","\n",RowBox[
+{"greenPos"," ","="," ",RowBox[{"Map","[",RowBox[{RowBox[{RowBox[{"Position","[",RowBox[
+{RowBox[{"picture","[",RowBox[{"[",RowBox[{"1",",","1"}],"]"}],"]"}],","," ","#"}],"]"}]," ","&"}],","," ","greenSpots"}],"]"}]}],";","\n",RowBox[
+{"truexygreen"," ","=",RowBox[{"Map","[",RowBox[{"Reverse",","," ",RowBox[{"Flatten","[",RowBox[
+{"greenPos",","," ","1"}],"]"}]}],"]"}]}],";"," ","\n",RowBox[{"truexygreenx"," ","=",RowBox[
+{"truexygreen","/.",RowBox[{RowBox[{"{",RowBox[{"x_",","," ","y_"}],"}"}],"\[Rule]","x"}]}]}],";","\n",RowBox[
+{"truexygreeny"," ","=",RowBox[{"truexygreen","/.",RowBox[{RowBox[{"{",RowBox[{"x_",","," ","y_"}],"}"}],"\[Rule]","y"}]}]}],";","\n","\n",RowBox[
+{"{",RowBox[{RowBox[{"{",RowBox[{RowBox[{"Median","[","truexyredx","]"}],","," ",RowBox[
+{"Median","[","truexyredy","]"}]}],"}"}],","," ","\n",RowBox[{"{",RowBox[{RowBox[
+{"Median","[","truexygreenx","]"}],","," ",RowBox[{"Median","[","truexygreeny","]"}]}],"}"}]}],"}"}]}],","," ","\n",RowBox[
+{"{",RowBox[{"k",","," ","1",","," ","num"}],"}"}]}],"]"}]}],";"}],RowBox[{"\n","\n"}],RowBox[
+{"redCenters"," ","="," ",RowBox[{"First","/@","RGcenters"}]}],"\n",RowBox[{"greenCenters"," ","="," ",RowBox[
+{"Last","/@","RGcenters"}]}],"\n","Null"}],"Input",ExpressionUUID -> "a1100908-6c9a-4985-936d-143a21c66877"],Cell[
+TextData[
+{"This"," ","function"," ","above"," ","locates"," ","all"," ","the"," ","red"," ","and"," ","green"," ","pixels"," ","in"," ","the"," ","given"," ","image",StyleBox[
+RowBox[{"."," "}]],"It"," ","computes"," ","the"," ","median"," ","location"," ","of"," ","the"," ","red"," ","and"," ","green"," ","pixels"," ","in"," ","the"," ","frame",StyleBox[
+RowBox[{","," "}]],"which"," ","gives"," ","us"," ","a"," ","single"," ","point"," ","for"," ","the"," ","red"," ","and"," ","green"," ","dots"," ","in"," ","the"," ","image",StyleBox[
+RowBox[{"."," "}]],"Now",StyleBox[RowBox[{","," "}]],"below",StyleBox[RowBox[{","," "}]],"we"," ","can"," ","print"," ","out"," ","the"," ","x"," ","and"," ","y"," ","coordinates"," ","for"," ","each"," ","dot"," ","in"," ","the"," ","frame",StyleBox[
+RowBox[{"."," "}]]}],"Text",ExpressionUUID -> "bf013a35-078e-446c-a01c-08460e975177"],Cell[
+BoxData[
+{RowBox[{"redX"," ","="," ",RowBox[{"First","/@","redCenters"}]}],"\n",RowBox[{"redY"," ","="," ",RowBox[
+{"Last","/@","redCenters"}]}],"\n",RowBox[{"greenX"," ","="," ",RowBox[{"First","/@","greenCenters"}]}],"\n",RowBox[
+{"greenY"," ","="," ",RowBox[{"Last","/@","greenCenters"}]}]}],"Input",ExpressionUUID -> "85540a54-3c60-4a76-bc88-2fa1f91df219"],Cell[
+TextData[
+{"We"," ","do"," ","this"," ","check"," ","here"," ","to"," ","make"," ","sure"," ","Null"," ","is"," ","not"," ","printed"," ","out"," ","and"," ","that"," ","the"," ","red"," ","and"," ","green"," ","dots"," ","were"," ","identified"," ","in"," ","the"," ","frame",StyleBox[
+RowBox[{"."," "}]],"If"," ","Null"," ","is"," ","printed"," ","out"," ","we"," ","have"," ","to"," ","change"," ","our"," ","bounds"," ","for"," ","the"," ","threshold"," ","functions","."}],
+"Text",ExpressionUUID -> "c301380b-2bdc-4e20-b86f-ef0c4e35c2fc"],Cell[
+TextData[{"Finally",StyleBox[
+RowBox[{","," "}]],"we"," ","can"," ","transform"," ","the"," ","coordinates"," ","for"," ","the"," ","green",StyleBox[
+RowBox[{" ","("}]],"red",StyleBox[RowBox[{")"," "}]],"dot"," ","in"," ","each"," ","frame"," ","by"," ","subtracting"," ","out"," ","the"," ","coordinates"," ","for"," ","white",StyleBox[
+RowBox[{" ","("}]],"green",StyleBox[RowBox[{")"," "}]],"dot"," ","in"," ","that"," ","particular"," ","frame",StyleBox[
+RowBox[{"."," "," "}]],"This"," ","gives"," ","us"," ","a"," ","coordinate"," ","system"," ","for"," ","each"," ","colored"," ","dot"," ","whose"," ","origin"," ","is"," ","fixed"," ","at"," ","the"," ","white"," ","dot",StyleBox[
+RowBox[{"."," "," "}]],"Note"," ","that"," ","the"," ","coordinates"," ","of"," ","the"," ","white"," ","dot"," ","are",StyleBox[
+RowBox[{" ","{"}]],"A",",","B",StyleBox[RowBox[{"}"," "}]],"in"," ","each"," ","frame"," ","in"," ","this"," ","skeleton"," ","code","."}],
+"Text",ExpressionUUID -> "530d0f63-113a-4a67-8396-5ab2a46b2f8c"],Cell[
+BoxData[{RowBox[
+{"greenDot"," ","="," ",RowBox[{"Map","[",RowBox[{RowBox[{RowBox[{"#"," ","-"," ",RowBox[
+{"{",RowBox[{"A",",","B"}],"}"}]}]," ","&"}],","," ","greenCenters"}],"]"}]}],"\n",RowBox[
+{"redDots"," ","="," ",RowBox[{"redCenters"," ","-"," ","greenDot"}]}]}],"Input",
+ExpressionUUID -> "96646c71-f5c2-42e7-88d3-74526e792f1a"],Cell[
+TextData[{"Now"," ","we"," ","set"," ","the"," ","directory"," ","back"," ","to"," ","where"," ","we"," ","have",StyleBox[
+RowBox[{" ","."}]],"xls"," ","files"," ","for"," ","the"," ","green"," ","dot"," ","and"," ","red"," ","dot"," ","data",StyleBox[
+RowBox[{"."," "}]],"We"," ","use"," ","this"," ","data"," ","that"," ","we"," ","now"," ","have"," ","to"," ","create"," ","graphs"," ","that"," ","represent"," ","the"," ","motion","."}],
+"Text",ExpressionUUID -> "06c9458a-adcc-4ec5-b7d6-c476540ef2ca"],Cell[
+BoxData[{RowBox[
+{RowBox[{"dataGreen"," ","="," ",RowBox[{"Import","[","\"filename1.xls\"","]"}]}],";"}],"\n",RowBox[
+{RowBox[{"dataRed"," ","="," ",RowBox[{"Import","[","\"filename2.xls\"","]"}]}],";"}],"\n",RowBox[
+{RowBox[{RowBox[{"num"," ","="," ",RowBox[{"Length","[","dataGreen","]"}]}],";"}]," "}],"\n",RowBox[
+{RowBox[{"ListPlot","[",RowBox[{"dataGreen",","," ",RowBox[{"Frame"," ","\[Rule]"," ","True"}],","," ",RowBox[
+{"Joined"," ","\[Rule]"," ","False"}],","," ",RowBox[{"FrameLabel"," ","\[Rule]"," ",RowBox[
+{"{",RowBox[{"\"x position (in pixels)\"",","," ","\"y position (in pixels)\""}],"}"}]}],","," ",RowBox[
+{"Axes"," ","\[Rule]"," ","False"}]}],"]"}],";"}],"\n",RowBox[{RowBox[{"ListPlot","[",RowBox[
+{"dataRed",","," ",RowBox[{"Frame"," ","\[Rule]"," ","True"}],","," ",RowBox[{"Joined"," ","\[Rule]"," ","False"}],","," ",RowBox[
+{"FrameLabel"," ","\[Rule]"," ",RowBox[{"{",RowBox[{"\"x position (in pixels)\"",","," ","\"y position (in pixels)\""}],"}"}]}],","," ",RowBox[
+{"Axes"," ","\[Rule]"," ","False"}]}],"]"}],";"}]}],"Input",ExpressionUUID -> "378cec21-3f8d-4670-9eee-0f09623d6ef2"]},
+StyleDefinitions -> "Default.nb",FrontEndVersion -> "13. for Wolfram Cloud 1.61.2 (November 30, 2021)"]

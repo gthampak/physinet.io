@@ -43,15 +43,15 @@ $$\ddot{\theta_2} = \frac{(m1+m2)[l_1 \dot{\theta_1}^2 + \frac{\dot{\theta_2}^2s
 
 </center>
 
-where $$\theta_1$$ and $$\theta_2$$ describes the angles created between the pendulum arms and the vertical plane, $$m_1$$ and $$m_2$$ describe the masses of the first and second pendulum respectively, and $$l_1$$ and $$l_2$$ describe the arm lengths of the first and second pendulum directly. Observing the exponential terms in both equations, it can be inferred that any error will propogate through the system at a large scale, making accurate forecasting of the path to be quite difficult.
+where $\theta_1$ and $\theta_2$ describes the angles created between the pendulum arms and the vertical plane, $m_1$ and $m_2$ describe the masses of the first and second pendulum respectively, and $l_1$ and $l_2$ describe the arm lengths of the first and second pendulum directly. Observing the exponential terms in both equations, it can be inferred that any error will propogate through the system at a large scale, making accurate forecasting of the path to be quite difficult.
 
 ***
 
 ### 2. Related works
 
-Similar work on chaotic systems and the double pendulum have been done before. Klinkachorn and Parmar at Stanford characterized the performance of neural networks on double pendulum's as the starting angle between the two pendulum arm's began to vary. However, they tested a range of machine learning algorithms and models, including linear regression, autoregression, feed-forward neural networks, and long-short term memory networks. Rudy et al. also demonstrated a novel method to train models that sought to fit dynamical systems on noisy data and compared increasing levels of variance that arose when a neural network was used to predict an increasingly noisy double pendulum input.
+Similar works on chaotic systems and the double pendulum have been done. [Klinkachorn and Parmar](http://cs229.stanford.edu/proj2019spr/report/38.pdf) at Stanford characterized the performance of neural networks on double pendulums as the starting angle between the two pendulum arm's began to vary. However, they tested a range of machine learning algorithms and models, including linear regression, autoregression, feed-forward neural networks, and long-short term memory networks. [Rudy et al](https://www.sciencedirect.com/science/article/pii/S0021999119304644). also demonstrated a novel method to train models that sought to fit dynamical systems on noisy data and compared increasing levels of variance that arose when a neural network was used to predict an increasingly noisy double pendulum input.
 
-Although sharing multiple similarities, our work primarily differs in that we seek to test models that hypothetically ought to perform quite well on this task. The simple fully-connected network is simply used as a baseline instead of as the most advanced model, Furthermore, we extend upon prior work by testing LNN, LSTM, and RC, which are all models that have advantageous aspects for forecasting a double pendulum system.
+Although sharing multiple similarities, our work differs in that we seek to test models that hypothetically ought to perform quite well on this task. The simple fully-connected network is simply used as a baseline instead of as the most advanced model, Furthermore, we extend upon prior work by testing LNN, LSTM, and RC, which are all models that have advantageous aspects for forecasting a double pendulum system.
 
 ***
 
@@ -59,7 +59,7 @@ Although sharing multiple similarities, our work primarily differs in that we se
 
 #### 3.1 The Dataset
 
-The dataset used is a double pendulum simulation dataset that generates any required number analytical solutions to the double pendulum problem given a set of initial conditions. This is done computationally and represents the ground truth solution that is derived through the double pendulum's equations of motion. Initially, we planned on building our own dataset with some computer vision code and a double pendulum setup provided by Pomona College Physics Department to test our trained networks on noisy systems (real world double pendulum), however we did not have time to complete this task. The IBM double pendulum dataset used in the beginning of the project provef to be unsatisfactory. It consists of only coordinates from images, which are difficult to parse and expand upon. Eventually we switched to generated analytical dataset. However, the IBM dataset can be put into use in future extension of this project (See future extention section for details.) The simulated dataset, the IBM dataset, and computer vision dataset will provide us with data on the same system with increasing levels of noise.
+The dataset used for training is a double pendulum simulation dataset that generates a sequence analytical solutions to the double pendulum problem given an initial condition. This is done computationally and represents the ground truth solution that is derived through the double pendulum's equations of motion. Initially, we planned on building our own dataset with some computer vision code and a double pendulum setup provided by Pomona College Physics Department to test our trained networks on noisy systems (real world double pendulum), however we did not have time to complete this task. The IBM double pendulum dataset used in the beginning of the project also proved to be unsatisfactory. It consists of only coordinates from images, which were difficult to parse and expand upon. Eventually we decided to use the generated analytical dataset. However, the IBM dataset can be put into use in future extension of this project (See future extension section for details.) The simulated dataset, the IBM dataset, and computer vision dataset will provide us with data on the same system with increasing levels of noise.
 
 To generate the simulation dataset, we simply solve the equations of motion for the double pendulum and generate positions for a range of timesteps. This is done by using the Runge-Kutta method to step through small timesteps and generate each analytical next step. We do this for a total of 1500 timesteps where each timestep is 0.01 seconds.
 
@@ -75,21 +75,21 @@ LNNs differentitated from these models quite a bit. These are far more physics a
 
 An overview of the models are shown below:
 
-| Name        | Hyperparameters                                                                     | Epochs/Iterations |   |
-|-------------|-------------------------------------------------------------------------------------|-------------------|---|
-| Baseline FC | batch = 32; lr = 0.01                                                               | 5 epochs          |   |
-| LSTM        | batch = 256; lr = 0.01                                                              | 10 epochs         |   |
-| RC          | leakrate = 0.1;   spectralradius=25;inputscaling=0.5;regularization=1e-7;forecase=1 | 36 epoch          |   |
-| LNN         | batch=100; lr=0.001                                                                 | 15,000 iterations |   |
+| Name        | Hyperparameters                                                                     | Epochs/Iterations |
+|-------------|-------------------------------------------------------------------------------------|-------------------|
+| Baseline FC | batch = 32; lr = 0.01                                                               | 5 epochs          |
+| LSTM        | batch = 256; lr = 0.01                                                              | 10 epochs         |
+| RC          | leakrate = 0.1;   spectralradius=25;inputscaling=0.5;regularization=1e-7;forecase=1 | 36 epoch          |
+| LNN         | batch=100; lr=0.001                                                                 | 15,000 iterations |
 
-For analysis, we wrote graphing functions that emulates paths of the double pendulums under different initial conditions over time consistent with the laws of physics. We overlaid the theoretical paths with our network-generated paths to get a clear visual representation of how the different networks perform. We also plotted the differences in predicted angles and analytically calculated angles, as well as the distance between pendulum endpoints for the predicted cartesian coordinates and analytical cartesian coordinates. MSE errors are used onlyto compare LSTM or ESN performances under different hyperparameters, but not across models. Traditionally, F1 score, accuracy, precision, recall, etc. would be considered in the evaluation of model performance, but due to the nature of error propogation for the double pendulum, these metrics are not a good grounds for the latter kind of comparison..
+For analysis, we created a ground-truth graph that consisted of the analytical path of a double pendulum given an initial condition. We compared this theoretical path with our network-generated paths to get a clear visual representation of how the different networks perform. We also plotted the differences in predicted angles and analytically calculated angles, as well as the distance between pendulum endpoints for the predicted cartesian coordinates and analytical cartesian coordinates. MSE errors are used only to compare FC, LSTM or ESN performances under different hyperparameters, but not across models. Traditionally, F1 score, accuracy, precision, recall, etc. would be considered in the evaluation of model performance, but due to the nature of error propogation for the double pendulum, these metrics are not a good grounds for the latter kind of comparison.
 
 
 ***
 
 ### 4. Discussion: Results and Network Comparisons
 
-To compare these 3 networks, we looked at validation loss and accuracy, and comparing how well they perform on the testing set generated analytically. By comparing the 3 more advanced structured models against the FC baseline, we observed the following results.
+To compare these 3 networks, we looked at validation loss and accuracy, and comparing how well they perform on the analytically generated testing set. We also perform quantitative comparisons on videos we render from the frames of predictions and analytical solutions.
 
 #### 4.0 General Overview
 
@@ -103,37 +103,57 @@ We can also visualize each of these positions continuously in a video:
   <img src="plots/analytic.gif" width="350" />
   <img src="plots/fc.gif" width="350" />
 </p>
-<center>From left to right, the analytical and FC predicted paths
+
+  <center>From left to right, the analytical and FC predicted paths </center>
 
 <p float="left">
-  <img src="plots/lnn.gif" width="300" />
-  <img src="plots/esn.gif" width="300" />
-  <img src="plots/lstm.gif" width="300" />
+  <kbd>
+    <img src="plots/lnn.gif" width="350" />
+  </kbd>
+  <kbd>
+    <img src="plots/esn.gif" width="350" />
+  </kbd>
+  <kbd>
+    <img src="plots/lstm.gif" width="350" />
+  </kbd>
 </p>
-<center>From left to right, LNN predicted, ESN predicted, LSTM predicted </center>
+
+  <center>From left to right, LNN predicted, ESN predicted, LSTM predicted </center>
 <br>
 
 From the video, one clear advantage of the LNN in the case of this system is its preservation of physics. Though the path traced does not perfectly align with the analytical solution, the LNN conserves energy in the system, and the total amount of potential and kinetic energy are balanced accordingly. However, the ESN does not abide by the laws of physics, and tends to move about randomly and disobey gravity as well as conservation of energy.
 
-From this broad overview, it is quite obvious that the LNN seems to match the analytical solution the most, while the ESN completely departs from the analytical solution. Taking a look at difference between the distance between x and y positions of the analytical solution and each model prediction, as well as the difference between the angles produced by the analytical solution and the model predictions, we see the following:
+From this broad overview, it is quite obvious that the LNN seems to match the analytical solution the most, while the ESN completely departs from the analytical solution. Meanwhile, the FC network barely moves, and its movements are basically undetectable in video. 
+
+Taking a look at difference between the distance between x and y positions of the analytical solution and each model prediction, as well as the difference between the angles produced by the analytical solution and the model predictions, we see the following:
 
 ![FC Error - Distance Between Points](plots/FC_error_distance.png) ![LNN Error - Distance Between Points](plots/LNN_error_distance.png) ![ESN Error - Distance Between Points](plots/ESN_error_distance.png) ![LSTM Error - Distance Between Points](plots/LSTM_error_distance.png) 
 
-![FC Error - Difference Between Angles](plots/FC_theta_error.png) ![LNN Error - Difference Between Angles](plots/LNN_theta_error.png) ![ESN Error - Difference Between Angles](plots/ESN_theta_error.png) ![LSTM Error - Difference Between Angles](plots/LSTM_theta_error.png) 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;From left to right, FC, LNN, ESN, LSTM
+
+![FC Error - Difference Between Angles](plots/FC_theta_error.png) ![LNN Error - Difference Between Angles](plots/LNN_theta_error.png) ![ESN Error - Difference Between Angles](plots/ESN_theta_error.png) ![LSTM Error - Difference Between Angles](plots/LSTM_error_angle.png) 
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; From left to right, FC, LNN, ESN, LSTM
+
+<br>
 
 Visualizations of error report large differences between analytical solutions and model predictions for both models. Since the double pendulum is a highly chaotic system, any small error in the system will propogate over time, rendering all later predictions to be somewhat different from the analytical solution.
     
 #### 4.1 Baseline Fully Connected
     
-The fully-connected model consists of the input and output layers, three (32, 32) linear layer, with ReLu activation functions between these layers and a sigmoid activation function at the output. The baseline fully-connected model is the worst model for the task. Rather than actually predict the path, it remains in the initial condition and tends to not move from it. We postulate that this is due to the fact that the model is unable to learn a consist way to learn the dynamics of the double pendulum, and finds the best way to reduce loss to be through guessing the initial point over and over again. This prediction is supported by the fact that regardless of tuned hyperparameters, training loss seems to decrease negligibly at first, and then remains the same at all other epochs. This baseline fully-connected model validates the assumption that this task is an incredibly difficult one to forecast, and without the innovations of sequential memory, reservoirs, or modification to loss functions, it is obviously the worst of the bunch.
+The fully-connected model consists of the input and output layers, three (32, 32) linear layers, each with ReLu activation functions a sigmoid activation function at the output. The baseline fully-connected model is the worst model for the task. Rather than actually predict the path, it remains in the initial condition and tends to not move from it. We postulate that this is due to the fact that the model is unable to learn a consist way to learn the dynamics of the double pendulum, and finds the best way to reduce loss to be through guessing the initial point over and over again. 
+
+![FC Loss](plots/train_loss_FC.png)
+
+From the above figure, we see that this prediction is supported by the fact that regardless of tuned hyperparameters, training loss seems to decrease negligibly at first, and then remains the same at all other epochs. This baseline fully-connected model validates the assumption that this task is an incredibly difficult one to forecast, and without the innovations of sequential memory, reservoirs, or modification to loss functions, it is the worst of the bunch.
 
 #### 4.2 LSTM Model
 
-We note that the LSTM is not really for to the task. With a 3 layer LSTM model with decreasing hidden layer sizes `[32, 16, 8]`, after training 10 epochs on 100 generated analytical samples, an example trial of generation looks like this:
+We note that the LSTM performs better than the baseline FC, but it still does not do very well. With a 3 layer LSTM model with decreasing hidden layer sizes `[32, 16, 8]`, we train over 10 epochs on 1500 generated analytical samples. An example trial of generation looks like this:
 
 ![Model Output](plots/LSTM_pendulum_positions_model.png)![Ground Truth](plots/LSTM_pendulum_positions_analytic.png)
 
-We observe that, although the model learns the spirit of a "chaotic system", it does not really learn the pattern. The outputs are far off from target, and des not even show similar pattern.
+Although the model learns the spirit of a "chaotic system", it does not really learn the pattern. The outputs are far off from target, and does not even show a similar pattern of motion. 
 
 Also, the training statistics shows severe overfitting of the data:
 
@@ -147,15 +167,15 @@ Altering the `learning_rate` does not seem to solve the problem.
 
 #### 4.3 LNN Model
 
-The LNN model demonstrates an accurate prediction of the pendulum for the first few prediction frame, but once there is considerable error, the error propagates quickly throughout the system and make the prediction unreliable. For single frame predictions however, we still witness reasonable loss decrease over the course of training:
+The LNN model demonstrates an accurate prediction of the pendulum for the first few prediction frames, but once error occurs, the error propagates quickly throughout the system and make the prediction unreliable. For single frame predictions however, we still witness reasonable loss decrease over the course of training:
 
 ![LNN Loss](plots/LNN_loss.png)
 
-However, this error during multi-timestep forecasting makes sense since double pendulum is such a chaotic system and error propagates easily. Also, LNN prediction seems to follow the actual physical rules and conserve energy and momentum while making the prediction, which is a virtue most neural networks lack.
+LNN prediction seems to follow the actual physical rules and conserve energy and momentum while making the prediction, which is a virtue most neural networks lack.
 
 #### 4.4 ESN Model
 
-Our ESN model takes as input the triangular functions of the angles formed by the arms and the vertical line. The key hyperparameters for our network are as follows:
+Our ESN model takes as input the triangular functions of the angles formed by the arms and the vertical. The key hyperparameters for our network are as follows:
 
 ```python
 leak_rate = 0.1         #Decides the "memory size". higher value -> shorter memory
@@ -165,32 +185,32 @@ regularization = 1e-7   #ridge optimization parameter.
 forecase = 1            #use the next following frame as label.
 ```
 
-The ESN trains on entire time series and use the same serie (but one frame later) as label. The network turns out to be extremely inaccurate in learning and predicting the movement of the end joint of the double pendulum.
+The ESN trains on entire time series and use the same series (but one frame later) as label. The network turns out to be extremely inaccurate in learning and predicting the movement of the end joint of the double pendulum.
 
-When we train the model, we noticed that there are 3 sample sequences that induced extremely high MSE error. To protect the network from such "pollution", we had to remove the 3 sequences by hand.
+When we train the model, we noticed that there are 3 sample sequences that induced extremely high MSE error. To protect the network from such "pollution", we had to remove these 3 sequences by hand.
 
-First of all, the prediction accuracy does not depend on the size of the training data. We first trained the ESN on each sample sequence, tested the prediction error (MSE), and then reset the model to untrained state. We then trained another model on the entire dataset (40 sequence) without reset. Figure 1(a) shows the MSE with/without resetting. Figure 1(b) compares the errors from the two models.
+Oddly, he prediction accuracy does not depend on the size of the training data. We first trained the ESN on each sample sequence, tested the prediction error (MSE), and then reset the model to untrained state. We then trained another model on the entire dataset (40 sequence) without reset. Figure 1(a) shows the MSE with/without resetting. Figure 1(b) compares the errors from the two models.
 
 ![Figure 1](plots/train_size_comp.png)
 
-We see from the figures that the MSE loss are relatively similar for both models, which implies that size of training data has little influence on model precision. This could be accounted to the limited "memory" for an ESN network. When training on large dataset, new incoming data takes away memory space of the network and make it "forgets" earlier inputs that it has learned.
+We see from the figures that the MSE loss are relatively similar for both the resetted and non-resetted model, which implies that size of training data has little influence on model precision. This could be due to the limited "memory" for an ESN network. When training on large dataset, new incoming data takes away memory space of the network and make it "forgets" earlier inputs that it has already learned.
 
-We observe that this is not due to the specific sequence we tested the ESN upon. The sequences varies in their difficulty to train, but the the difference is within range of the error predicting one sequence can produce. This is shown in figure *2*
+We know that this anomaly in learning is not due to the specific sequence we tested the ESN upon. The sequences varies in their difficulty to train, but the the difference is within range of the error predicting one sequence can produce. This is shown in figure *2*
 
 ![Figure 2](plots/MSE_from_each_sequence.png)
 
-Changing the `leak_rate` parameter for a longer term of memory will alter the effect of training size. We trained 2 new models with `leak_rate=0.05` and `leak_rate=0.01`, and compared it with the previous `leak_rate=0.1` model interms of difference of MSE with respect of resetting, using the following formula:
+Changing the `leak_rate` parameter for a longer term of memory will alter the effect of training size. We trained 2 new models with `leak_rate=0.05` and `leak_rate=0.01`, and compared it with the previous `leak_rate=0.1` model. We use the following formula to look into the the variation between resetting and not resetting the model:
 
 $Diff = MSE_{No\ reset}-MSE_{Reset}$
 
 The results is shown below:
 ![Figure 3](plots/LR_comp.png)
 
-We see that extremrely small `leak_rate` induce significantly larger MSE difference both above and beyond 0, which means it is highly unstable. Comparing `0.05` and `0,1`, we find that lowering `leak_rate` results in difference mostly below 0, which means in that case larger training size generally gives smaller error. However, It is also most unstable since there are cases where larger training dataset induced significantly high error.
+We see that extremely small `leak_rate` induces significantly larger MSE difference both above and beyond 0, which means it is highly unstable. Comparing `0.05` and `0,1`, we find that lowering `leak_rate` results in difference mostly below 0, which means that larger training size generally gives smaller error. However, this case is not entirely stable as there are instances where larger training dataset induced significantly high error.
 
-Another way we can see the ineffectiveness of larger training data is that, in the no resetting case, our $x$ axis can be treated as time passed, and we see that the MSE does not shown any decrease pattern (see fig 1a).
+Another way we can see the ineffectiveness of larger training data is that, in the no resetting case, our $x$ axis can be treated as time passed. Using this formalism, we see that the MSE does not shown any decrease over time (see fig 1a).
 
-The discussion above shows how the ESN model is not making valid predictions. Our main assumption is that the motion of the double pendulumn is overall circular. When more data are fed into the network, it learns nothing else but the circular motion. When less data are fed, either there are not enough data to learn from, or that it can only learn the local movement (which is often quite linear). The latter case also explaines why sometimes the prediction gives a linear trajectory that goes way beyond reasonable value -- It could have learnt a linear trend.
+The discussion above shows how the ESN model is not making entirely valid predictions. Our main assumption is that the motion of the double pendulumn is overall circular. When more data is fed into the network, it only learns circular motion. When less data is fed in, there is either not enough data to learn from, or only local linear movements are learnt. The latter case also explains why sometimes the prediction gives a linear trajectory that goes way beyond reasonable value -- It could have learnt a linear trend instead of a circular one.
 
 #### 4.5 Conclusion
 
@@ -223,15 +243,15 @@ There are multiple ways to further extend this project. The first extension woul
 
 ### Reference
 
-Asseman, A., Kornuta, T., & Ozcan, A.S. (2018). Learning beyond simulated physics.
+Asseman, A., Kornuta, T., & Ozcan, A.S. (2018). [Learning beyond simulated physics](https://openreview.net/forum?id=HylajWsRF7).
 
 Cranmer, M., Greydanus, S., Hoyer, S., Battaglia, P., Spergel, D., & Ho, S. (2020, July 30). [*Lagrangian neural networks*](https://arxiv.org/abs/2003.04630).
 
 Bollt, E. (2021, January 4). [*On explaining the surprising success of reservoir computing forecaster of chaos? The universal machine learning dynamical system with contrast to VAR and DMD*](https://aip.scitation.org/doi/abs/10.1063/5.0024890). American Association of Physics Teachers.
 
-Klinkachorn, S., & Parmar, J. (2019). Evaluating Current Machine Learning Techniques On Predicting Chaotic Systems CS.
+Klinkachorn, S., & Parmar, J. (2019). [Evaluating Current Machine Learning Techniques On Predicting Chaotic Systems CS](http://cs229.stanford.edu/proj2019spr/report/38.pdf).
 
-Rudy, S.H., Kutz, J.N., & Brunton, S.L. (2019). Deep learning of dynamics and signal-noise decomposition with time-stepping constraints. J. Comput. Phys., 396, 483-506.
+Rudy, S.H., Kutz, J.N., & Brunton, S.L. (2019). [*Deep learning of dynamics and signal-noise decomposition with time-stepping constraints*](https://www.sciencedirect.com/science/article/pii/S0021999119304644). J. Comput. Phys., 396, 483-506.
 
 Shinbrot, T., Grebogi, C., Wisdom, J., & Yorke, J. A. (1992, June 1). [*Chaos in a double pendulum*](https://aapt.scitation.org/doi/10.1119/1.16860). American Association of Physics Teachers.
 
