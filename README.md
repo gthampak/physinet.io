@@ -49,7 +49,7 @@ where $\theta_1$ and $\theta_2$ describes the angles created between the pendulu
 
 ### 2. Related works
 
-Similar works on chaotic systems and the double pendulum have been done. Klinkachorn and Parmar at Stanford characterized the performance of neural networks on double pendulums as the starting angle between the two pendulum arm's began to vary. However, they tested a range of machine learning algorithms and models, including linear regression, autoregression, feed-forward neural networks, and long-short term memory networks. Rudy et al. also demonstrated a novel method to train models that sought to fit dynamical systems on noisy data and compared increasing levels of variance that arose when a neural network was used to predict an increasingly noisy double pendulum input.
+Similar works on chaotic systems and the double pendulum have been done. [Klinkachorn and Parmar](http://cs229.stanford.edu/proj2019spr/report/38.pdf) at Stanford characterized the performance of neural networks on double pendulums as the starting angle between the two pendulum arm's began to vary. However, they tested a range of machine learning algorithms and models, including linear regression, autoregression, feed-forward neural networks, and long-short term memory networks. [Rudy et al.]((https://www.sciencedirect.com/science/article/pii/S0021999119304644)) also demonstrated a novel method to train models that sought to fit dynamical systems on noisy data and compared increasing levels of variance that arose when a neural network was used to predict an increasingly noisy double pendulum input.
 
 Although sharing multiple similarities, our work differs in that we seek to test models that hypothetically ought to perform quite well on this task. The simple fully-connected network is simply used as a baseline instead of as the most advanced model, Furthermore, we extend upon prior work by testing LNN, LSTM, and RC, which are all models that have advantageous aspects for forecasting a double pendulum system.
 
@@ -243,9 +243,9 @@ Cranmer, M., Greydanus, S., Hoyer, S., Battaglia, P., Spergel, D., & Ho, S. (202
 
 Bollt, E. (2021, January 4). [*On explaining the surprising success of reservoir computing forecaster of chaos? The universal machine learning dynamical system with contrast to VAR and DMD*](https://aip.scitation.org/doi/abs/10.1063/5.0024890). American Association of Physics Teachers.
 
-Klinkachorn, S., & Parmar, J. (2019). Evaluating Current Machine Learning Techniques On Predicting Chaotic Systems CS.
+Klinkachorn, S., & Parmar, J. (2019). [Evaluating Current Machine Learning Techniques On Predicting Chaotic Systems CS](http://cs229.stanford.edu/proj2019spr/report/38.pdf).
 
-Rudy, S.H., Kutz, J.N., & Brunton, S.L. (2019). Deep learning of dynamics and signal-noise decomposition with time-stepping constraints. J. Comput. Phys., 396, 483-506.
+Rudy, S.H., Kutz, J.N., & Brunton, S.L. (2019). [*Deep learning of dynamics and signal-noise decomposition with time-stepping constraints*](https://www.sciencedirect.com/science/article/pii/S0021999119304644). J. Comput. Phys., 396, 483-506.
 
 Shinbrot, T., Grebogi, C., Wisdom, J., & Yorke, J. A. (1992, June 1). [*Chaos in a double pendulum*](https://aapt.scitation.org/doi/10.1119/1.16860). American Association of Physics Teachers.
 
