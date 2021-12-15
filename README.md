@@ -49,7 +49,7 @@ where $\theta_1$ and $\theta_2$ describes the angles created between the pendulu
 
 ### 2. Related works
 
-Similar works on chaotic systems and the double pendulum have been done. [Klinkachorn and Parmar](http://cs229.stanford.edu/proj2019spr/report/38.pdf) at Stanford characterized the performance of neural networks on double pendulums as the starting angle between the two pendulum arm's began to vary. However, they tested a range of machine learning algorithms and models, including linear regression, autoregression, feed-forward neural networks, and long-short term memory networks. [Rudy et al.]((https://www.sciencedirect.com/science/article/pii/S0021999119304644)) also demonstrated a novel method to train models that sought to fit dynamical systems on noisy data and compared increasing levels of variance that arose when a neural network was used to predict an increasingly noisy double pendulum input.
+Similar works on chaotic systems and the double pendulum have been done. [Klinkachorn and Parmar](http://cs229.stanford.edu/proj2019spr/report/38.pdf) at Stanford characterized the performance of neural networks on double pendulums as the starting angle between the two pendulum arm's began to vary. However, they tested a range of machine learning algorithms and models, including linear regression, autoregression, feed-forward neural networks, and long-short term memory networks. [Rudy et al](https://www.sciencedirect.com/science/article/pii/S0021999119304644). also demonstrated a novel method to train models that sought to fit dynamical systems on noisy data and compared increasing levels of variance that arose when a neural network was used to predict an increasingly noisy double pendulum input.
 
 Although sharing multiple similarities, our work differs in that we seek to test models that hypothetically ought to perform quite well on this task. The simple fully-connected network is simply used as a baseline instead of as the most advanced model, Furthermore, we extend upon prior work by testing LNN, LSTM, and RC, which are all models that have advantageous aspects for forecasting a double pendulum system.
 
@@ -237,7 +237,7 @@ There are multiple ways to further extend this project. The first extension woul
 
 ### Reference
 
-Asseman, A., Kornuta, T., & Ozcan, A.S. (2018). Learning beyond simulated physics.
+Asseman, A., Kornuta, T., & Ozcan, A.S. (2018). [Learning beyond simulated physics](https://openreview.net/forum?id=HylajWsRF7).
 
 Cranmer, M., Greydanus, S., Hoyer, S., Battaglia, P., Spergel, D., & Ho, S. (2020, July 30). [*Lagrangian neural networks*](https://arxiv.org/abs/2003.04630).
 
