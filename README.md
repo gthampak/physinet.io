@@ -9,6 +9,8 @@ Pomona College CS
 
 Nathan Paik, Guy Thampakkul, Tai Xiang, Ziang Xue
 
+[Latest Project Page Here.](https://gthampak.github.io/physinet.io/)
+
 ***
 
 ### 1. Introduction
