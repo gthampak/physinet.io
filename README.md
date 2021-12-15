@@ -104,7 +104,7 @@ We can also visualize each of these positions continuously in a video:
   <img src="plots/fc.gif" width="350" />
 </p>
 
-<center>From left to right, the analytical and FC predicted paths </center>
+  <center>From left to right, the analytical and FC predicted paths </center>
 
 <p float="left">
   <kbd>
@@ -118,7 +118,7 @@ We can also visualize each of these positions continuously in a video:
   </kbd>
 </p>
 
-<center>From left to right, LNN predicted, ESN predicted, LSTM predicted </center>
+  <center>From left to right, LNN predicted, ESN predicted, LSTM predicted </center>
 <br>
 
 From the video, one clear advantage of the LNN in the case of this system is its preservation of physics. Though the path traced does not perfectly align with the analytical solution, the LNN conserves energy in the system, and the total amount of potential and kinetic energy are balanced accordingly. However, the ESN does not abide by the laws of physics, and tends to move about randomly and disobey gravity as well as conservation of energy.
