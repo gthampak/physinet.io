@@ -76,6 +76,8 @@
 <center>
 	<img src="plots/PendulumInitialConditions.gif" width="500" />
 </center> 
+<center>	Obtained from the YouTube video "Double pendulum | Chaos | Butterfly effect | Computer simulation" by Think Twice
+</center>
 <p>From the above videos, we observe that slight differences in the initial conditions of the system result in drastically different paths and trajectories. This makes the system extraordinarily hard to forecast, for slight deviations in path result in substantial error. We can observe this in the equations of motion, which are reached through a derivation with the Lagrangian:</p>
 <center><img src="plots/dbl_pend_sample.png" width="325" /></center>
 <br>
@@ -165,9 +167,9 @@
 <p>From this broad overview, it is quite obvious that the LNN seems to match the analytical solution the most, while the ESN completely departs from the analytical solution. Meanwhile, the FC network barely moves, and its movements are basically undetectable in video.</p>
 <p>Taking a look at difference between the distance between x and y positions of the analytical solution and each model prediction, as well as the difference between the angles produced by the analytical solution and the model predictions, we see the following:</p>
 <p><img src="plots/FC_error_distance.png" alt="FC Error - Distance Between Points"> <img src="plots/LNN_error_distance.png" alt="LNN Error - Distance Between Points"> <img src="plots/ESN_error_distance.png" alt="ESN Error - Distance Between Points"> <img src="plots/LSTM_error_distance.png" alt="LSTM Error - Distance Between Points"></p>
-<p>                                                             Top Left: FC, Top Right: LNN, Bottom Left: ESN, Bottom Right: LSTM</p>
+<p>                                                            <center>Top Left: FC, Top Right: LNN, Bottom Left: ESN, Bottom Right: LSTM</center></p>
 <p><img src="plots/FC_theta_error.png" alt="FC Error - Difference Between Angles"> <img src="plots/LNN_theta_error.png" alt="LNN Error - Difference Between Angles"> <img src="plots/ESN_theta_error.png" alt="ESN Error - Difference Between Angles"> <img src="plots/LSTM_error_angle.png" alt="LSTM Error - Difference Between Angles"></p>
-<p>                                                             Top Left: FC, Top Right: LNN, Bottom Left: ESN, Bottom Right: LSTM</p>
+<p>                                                             <center>Top Left: FC, Top Right: LNN, Bottom Left: ESN, Bottom Right: LSTM</center></p>
 <br>
 <p>Visualizations of error report large differences between analytical solutions and model predictions for both models. Since the double pendulum is a highly chaotic system, any small error in the system will propogate over time, rendering all later predictions to be somewhat different from the analytical solution.</p>
 <h4 id="41-baseline-fully-connected">4.1 Baseline Fully Connected</h4>
